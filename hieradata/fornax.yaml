@@ -1,0 +1,6 @@
+---
+icinga2::constants:
+  NodeName: fornax
+  ZoneName: master
+icinga2::feature::api::accept_config: false
+icinga2::feature::api::parent: false

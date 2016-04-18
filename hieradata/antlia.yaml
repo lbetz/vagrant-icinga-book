@@ -1,0 +1,2 @@
+---
+icinga2::feature::api::parent: dmz

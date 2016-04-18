@@ -1,0 +1,4 @@
+---
+network::dns: 'yes'
+network::stage: 'first'
+ntp::server: true

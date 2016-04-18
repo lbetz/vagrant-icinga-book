@@ -1,0 +1,5 @@
+---
+icinga2::constants:
+  NodeName: sculptor
+  ZoneName: dmz
+icinga2::feature::api::parent: 'master'

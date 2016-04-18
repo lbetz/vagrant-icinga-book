@@ -1,0 +1,34 @@
+/*
+ * Endpoint and Zone configuration for a cluster setup
+ * This local example requires `NodeName` defined in
+ * constants.conf.
+ */
+
+object Endpoint NodeName {
+}
+
+object Endpoint "<%= @endpoint_cn %>" {
+host = "<%= @endpoint_ip %>"
+}
+
+object Zone ZoneName {
+  endpoints = [ NodeName ]
+  parent = "<%= @parent %>"
+}
+
+object Zone "<%= @parent %>" {
+  endpoints = [ "<%= @endpoint_cn %>" ]
+}
+
+/*
+ * Defines a global zone containing templates,
+ * etc. synced to all nodes, if they accept
+ * configuration. All remote nodes need
+ * this zone configured too.
+ */
+
+<% if @kernel == 'Linux' -%>
+object Zone "linux-commands" {
+  global = true
+}
+<% end -%>

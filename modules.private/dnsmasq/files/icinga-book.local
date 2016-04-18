@@ -1,0 +1,14 @@
+listen-address=172.16.1.254
+dhcp-range=set:green,172.16.1.100,172.16.1.150,12h
+dhcp-option=tag:green,15,icinga-book.local
+dhcp-option=tag:green,121,172.16.2.0/24,172.16.1.254
+dhcp-option=tag:green,option:ntp-server,172.16.1.254
+dhcp-option=tag:green,option:domain-search,icinga-book.local,icinga-book.net
+
+dhcp-host=02:00:27:00:00:11,172.16.1.11,set:green
+dhcp-host=02:00:27:00:00:12,172.16.1.12,set:green
+dhcp-host=02:00:27:00:00:13,172.16.1.13,set:green
+dhcp-host=02:00:27:00:00:14,172.16.1.14,set:green
+dhcp-host=02:00:27:00:00:15,172.16.1.15,set:green
+dhcp-host=02:00:27:00:00:16,172.16.1.16,set:green
+dhcp-host=02:00:27:00:00:22,172.16.1.22,set:green

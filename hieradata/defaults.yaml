@@ -1,0 +1,8 @@
+---
+network::dns: 'no'
+icinga2::constants:
+  NodeName: "%{::hostname}"
+  ZoneName: "%{::hostname}"
+icinga2::feature::api::accept_config: true
+icinga2::feature::api::accept_commands: true
+icinga2::feature::api::parent: master

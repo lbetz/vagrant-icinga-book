@@ -26,7 +26,7 @@ class profile::icinga2::plugins {
     stage => 'repos',
   }
 
-  package { 'nagios-plugins-postgres':
+  package { ['nagios-plugins-postgres','nagios-plugins-mysql_health']:
     ensure => installed,
   }
 }
@@ -43,6 +43,18 @@ class profile::icinga2::master {
     host     => 'localhost',
     grant    => ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'DROP', 'CREATE VIEW', 'CREATE', 'ALTER', 'INDEX', 'EXECUTE'],
     before   => Class['icinga2::feature::idomysql'],
+  }
+
+  mysql_user { 'monitor@localhost':
+    ensure        => 'present',
+    password_hash => mysql_password('monitor')
+  }
+
+  mysql_grant { 'monitor@localhost/*.*':
+    ensure     => present,
+    privileges => [ 'SELECT' ],
+    table      => '*.*',
+    user       => 'monitor@localhost',
   }
 
   icinga2::endpoint { 'sculptor':

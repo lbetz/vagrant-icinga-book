@@ -26,7 +26,7 @@ class profile::icinga2::plugins {
     stage => 'repos',
   }
 
-  package { ['nagios-plugins-postgres','nagios-plugins-mysql_health']:
+  package { ['nagios-plugins-postgres','nagios-plugins-mysql_health','nagios-plugins-apache_status']:
     ensure => installed,
   }
 }

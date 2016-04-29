@@ -5,6 +5,9 @@ class profile::apache {
   class { '::apache':
     default_vhost => false,
   }
+  class { '::apache::mod::status':
+    allow_from => [ '172.16.2.11', ],
+  }
 }
 
 class profile::apache::download {

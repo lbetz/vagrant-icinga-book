@@ -59,6 +59,10 @@ node "sculptor" {
   include profile::icinga2::slave
 }
 
+node "gmw" {
+  include role::groupware
+}
+
 node "andromeda" {
 }
 

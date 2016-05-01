@@ -7,7 +7,6 @@ dhcp-option=tag:red,option:ntp-server,172.16.2.254
 dhcp-option=tag:red,option:domain-search,icinga-book.net,icinga-book.local
 
 mx-host=icinga-book.net,mx1.icinga-book.net,10
-mx-host=icinga-book.net,mx2.icinga-book.net,20
 
 dhcp-host=02:00:27:00:02:11,172.16.2.11,set:red
 dhcp-host=02:00:27:00:02:12,172.16.2.12,set:red

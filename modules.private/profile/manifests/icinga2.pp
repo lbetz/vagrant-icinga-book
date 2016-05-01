@@ -1,16 +1,13 @@
 class profile::icinga2::base {
   include icinga2
   include icinga2::feature::api
-
-  package { 'nagios-plugins-all':
-    ensure  => installed,
-    require => Class['icinga2::install'],
-  } ->
+  include profile::nagios::plugins
 
   user { 'icinga':
-    ensure => present,
-    groups => [ 'nagios' ],
-    notify => Class['icinga2::service'],
+    ensure  => present,
+    groups  => [ 'nagios' ],
+    require => Class['icinga2::install'],
+    notify  => Class['icinga2::service'],
   }
 
   file_line { 'disable_conf.d':
@@ -19,14 +16,22 @@ class profile::icinga2::base {
     line   => 'include_recursive "conf.d"',
     notify => Class['icinga2::service'],
   }
+
+  file_line { 'enable_contrib_plugins':
+    ensure => present,
+    path   => '/etc/icinga2/icinga2.conf',
+    line   => 'include <plugins-contrib>',
+    match  => '// include <plugins-contrib>',
+    notify => Class['icinga2::service'],
+  }
 }
 
 class profile::icinga2::plugins {
-  class { 'repos::plugins':
-    stage => 'repos',
-  }
+  include profile::nagios::plugins
 
-  package { ['nagios-plugins-postgres','nagios-plugins-mysql_health','nagios-plugins-apache_status']:
+  package { ['nagios-plugins-postgres',
+    'nagios-plugins-mysql_health',
+    'nagios-plugins-apache_status']:
     ensure => installed,
   }
 }
@@ -68,10 +73,6 @@ class profile::icinga2::master {
     global => true,
   }
 
-  Class['icinga2::install']
-    -> File_line['enable_contrib_plugins']
-    ~> Class['icinga2::service']
-
   File {
     owner => 'icinga',
     group => 'icinga',
@@ -102,12 +103,6 @@ class profile::icinga2::master {
     source  => 'puppet:///modules/profile/icinga2/zones.d',
   }
 
-  file_line { 'enable_contrib_plugins':
-    ensure => present,
-    path   => '/etc/icinga2/icinga2.conf',
-    line   => 'include <plugins-contrib>',
-    match  => '// include <plugins-contrib>',
-  }
 }
 
 class profile::icinga2::slave {
@@ -122,17 +117,6 @@ class profile::icinga2::slave {
   }
   icinga2::zone { ['global-templates', 'windows-commands', 'linux-commands']:
     global => true,
-  }
-
-  Class['icinga2::install']
-    -> File_line['enable_contrib_plugins']
-    ~> Class['icinga2::service']
-
-  file_line { 'enable_contrib_plugins':
-    ensure => present,
-    path   => '/etc/icinga2/icinga2.conf',
-    line   => 'include <plugins-contrib>',
-    match  => '// include <plugins-contrib>',
   }
 }
 

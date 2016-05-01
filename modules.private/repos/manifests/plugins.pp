@@ -5,11 +5,12 @@ class repos::plugins {
       'redhat': {
 
          yumrepo { 'icinga-book':
-            descr => "Extra Packages for Icinga Book Project ${::lsbmajdistrelease} - \$basearch",
-            baseurl => "http://download.icinga-book.net/epel/7",
+            descr          => "Extra Packages for Icinga Book Project ${::lsbmajdistrelease} - \$basearch",
+            baseurl        => "http://download.prefork.de/epel/7",
             failovermethod => 'priority',
-            enabled => '1',
-            gpgcheck => '0',
+            enabled        => '1',
+            gpgcheck       => '0',
+            sslverify      => '0',
          }
 
       } # RedHat

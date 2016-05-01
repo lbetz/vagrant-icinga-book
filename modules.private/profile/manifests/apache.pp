@@ -10,30 +10,6 @@ class profile::apache {
   }
 }
 
-class profile::apache::download {
-  require profile::apache
-
-  apache::vhost { 'download.icinga-book.net':
-    port    => '80',
-    docroot => '/var/www/download',
-  }
-
-  package { 'createrepo':
-    ensure => installed,
-  } ->
-  file { '/var/www/download':
-    ensure  => directory,
-    recurse => true,
-    purge   => true,
-    source  => 'puppet:///modules/profile/packages',
-  } ~>
-  exec { 'createrepo':
-    path        => '/bin:/usr/bin',
-    command     => 'createrepo /var/www/download/epel/7',
-    refreshonly => true,
-  }
-}
-
 class profile::apache::www {
   require profile::apache
 

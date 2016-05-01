@@ -63,6 +63,10 @@ node "gmw" {
   include role::groupware
 }
 
+node "kmw" {
+  include role::mailrelay
+}
+
 node "andromeda" {
 }
 

@@ -1,3 +1,22 @@
+class profile::postfix::mailrelay {
+
+  include ::postfix
+
+  file_line { 'enable inbound relay':
+    ensure  => present,
+    path    => '/etc/postfix/transport',
+    match   => '^icinga-book.net',
+    line    => 'icinga-book.net smtp:172.16.1.13',
+    require => Class['::postfix::install'],
+  } ~>
+  exec { 'generate transport.db':
+    command     => '/usr/sbin/postmap /etc/postfix/transport',
+    refreshonly => true,
+    notify      => Class['::postfix::service'],
+  }
+
+}
+
 class profile::postfix::groupware {
 
   include ::postfix

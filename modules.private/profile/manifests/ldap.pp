@@ -1,9 +1,10 @@
 class profile::ldap::client {
 
   class { 'openldap::client':
-    base       => 'dc=icinga-book,dc=local',
-    uri        => ['ldap://gmw', ],
-    tls_cacert => '/etc/openldap/ssl/ca.pem',
+    base        => 'dc=icinga-book,dc=local',
+    uri         => ['ldap://gmw', ],
+    tls_cacert  => '/etc/openldap/ssl/ca.pem',
+    tls_reqcert => 'never',
   } ->
   file { '/etc/openldap/ssl':
     ensure => directory,

@@ -1,2 +1,4 @@
 ---
 icinga2::feature::api::parent: dmz
+postfix::master_cf_source: 'puppet:///modules/profile/mailrelay/master.cf'
+postfix::main_cf_source: 'puppet:///modules/profile/mailrelay/main.cf'

@@ -29,9 +29,10 @@ class profile::icinga2::base {
 class profile::icinga2::plugins {
   include profile::nagios::plugins
 
-  package { ['nagios-plugins-postgres',
+  package { [ 'nagios-plugins-postgres',
     'nagios-plugins-mysql_health',
-    'nagios-plugins-apache_status']:
+    'nagios-plugins-apache_status',
+    'nagios-plugins-jmx4perl' ]:
     ensure => installed,
   }
 }

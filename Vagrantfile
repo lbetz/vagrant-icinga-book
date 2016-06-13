@@ -26,31 +26,31 @@ nodes = { 'draco'  => {
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000013',
           },
-          'sextans'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-            :mac      => '020027000014',
-          },
-          'phoenix'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-            :mac      => '020027000015',
-          },
-          'andromeda'  => {
-            :box      => 'w2k12r2',
-            :url      => 'http://boxes.netways.org/vagrant/windows/w2k12r2-x64-virtualbox.box',
-            :mac      => '020027000022',
-          },
+#          'sextans'  => {
+#            :box      => 'centos-7.2-x64-virtualbox',
+#            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+#            :mac      => '020027000014',
+#          },
+#          'phoenix'  => {
+#            :box      => 'centos-7.2-x64-virtualbox',
+#            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+#            :mac      => '020027000015',
+#          },
+#          'andromeda'  => {
+#            :box      => 'w2k12r2',
+#            :url      => 'http://boxes.netways.org/vagrant/windows/w2k12r2-x64-virtualbox.box',
+#            :mac      => '020027000022',
+#          },
           'kmw'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000213',
           },
-          'sagittarius'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-            :mac      => '020027000214',
-          },
+#          'sagittarius'  => {
+#            :box      => 'centos-7.2-x64-virtualbox',
+#            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+#            :mac      => '020027000214',
+#          },
           'sculptor'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
@@ -100,13 +100,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.define "andromeda" do |andromeda|
-    andromeda.vm.provision :shell,
-      :path => 'scripts/pre-install.bat'
-    andromeda.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--memory", "1024"]
-    end
-  end
+#  config.vm.define "andromeda" do |andromeda|
+#    andromeda.vm.provision :shell,
+#      :path => 'scripts/pre-install.bat'
+#    andromeda.vm.provider :virtualbox do |vb|
+#      vb.customize ["modifyvm", :id, "--memory", "1024"]
+#    end
+#  end
 
   config.vm.define "draco" do |draco|
     draco.vm.network :private_network, :adapter => 2, ip: "172.16.1.254"

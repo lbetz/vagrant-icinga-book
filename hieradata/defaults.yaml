@@ -1,5 +1,7 @@
 ---
 network::dns: 'no'
+apache::mod::status::allow_from:
+  - 172.16.1.11
 icinga2::constants:
   NodeName: "%{::hostname}"
   ZoneName: "%{::hostname}"

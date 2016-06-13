@@ -42,6 +42,11 @@ class profile::icinga2::master {
   include icinga2::feature::idomysql
   include profile::icinga2::plugins
 
+  File {
+    owner => 'icinga',
+    group => 'icinga',
+  }
+
   mysql::db { 'icinga':
     user     => 'icinga',
     password => 'icinga',
@@ -73,23 +78,6 @@ class profile::icinga2::master {
     global => true,
   }
 
-  File {
-    owner => 'icinga',
-    group => 'icinga',
-  }
-
-  package { 'icinga2-classicui-config':
-    ensure => installed,
-  } ->
-  package { 'icinga-gui':
-    ensure => installed,
-    notify => Class['icinga2::service'],
-  } ->
-  service { 'httpd':
-    ensure => running,
-    enable => true,
-  }
-
   file { '/var/lib/icinga2/ca':
     ensure  => directory,
     recurse => true,
@@ -100,6 +88,7 @@ class profile::icinga2::master {
   file { '/etc/icinga2/zones.d':
     ensure  => directory,
     recurse => true,
+    purge   => true,
     source  => 'puppet:///modules/profile/icinga2/zones.d',
   }
 
@@ -139,4 +128,16 @@ class profile::icinga2::agent {
     }
   }
 
+}
+
+class profile::icinga2::classicui {
+  include profile::apache
+
+  package { 'icinga2-classicui-config':
+    ensure => installed,
+  } ->
+  package { 'icinga-gui':
+    ensure => installed,
+    notify => Class['icinga2::service','apache'],
+  }
 }

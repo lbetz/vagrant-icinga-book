@@ -1,17 +1,37 @@
 class profile::apache {
+  include ::apache
+  include ::apache::mod::status
+
+  file { '/var/www/html/index.html':
+    ensure  => file,
+    content => "
+<html>
+<body>
+<table width=100% height=100%>
+  <td align=center>
+    <img src='./icinga-book.jpg'>
+  </td>
+</body>
+</html>",
+  }
+  file { '/var/www/html/icinga-book.jpg':
+    ensure => file,
+    source => 'puppet:///modules/profile/apache/icinga-book.jpg',
+  }
+}
+
+class profile::apache::pgsql {
+  include profile::apache
+
   package { 'php-pgsql':
     ensure => installed,
-  } ~>
-  class { '::apache':
-    default_vhost => false,
-  }
-  class { '::apache::mod::status':
-    allow_from => [ '172.16.2.11', ],
+    before => Class[Apache],
   }
 }
 
 class profile::apache::www {
   require profile::apache
+  require profile::apache::pgsql
 
   apache::vhost { 'www.icinga-book.net':
     port               => '80',

@@ -15,6 +15,10 @@ class profile::postfix::mailrelay {
     notify      => Class['::postfix::service'],
   }
 
+  package { ['clamav-server','amavisd-new']:
+    ensure => installed,
+  }
+
 }
 
 class profile::postfix::groupware {

@@ -1,23 +1,6 @@
 class profile::apache {
   include ::apache
   include ::apache::mod::status
-
-  file { '/var/www/html/index.html':
-    ensure  => file,
-    content => "
-<html>
-<body>
-<table width=100% height=100%>
-  <td align=center>
-    <img src='./icinga-book.jpg'>
-  </td>
-</body>
-</html>",
-  }
-  file { '/var/www/html/icinga-book.jpg':
-    ensure => file,
-    source => 'puppet:///modules/profile/apache/icinga-book.jpg',
-  }
 }
 
 class profile::apache::pgsql {
@@ -61,13 +44,36 @@ class profile::apache::www {
   file { '/var/www/html/index.html.en':
     ensure  => file,
     mode    => '0644',
-    content => 'Icinga Book',
+    content => "
+<html>
+<body>
+Icinga Book
+<table width=100% height=100%>
+  <td align=center>
+    <img src='./icinga-book.jpg'>
+  </td>
+</body>
+</html>",
   }
 
   file { '/var/www/html/index.html.de':
     ensure  => file,
     mode    => '0644',
-    content => 'Icinga Buch',
+    content => "
+<html>
+<body>
+Icinga Buch
+<table width=100% height=100%>
+  <td align=center>
+    <img src='./icinga-book.jpg'>
+  </td>
+</body>
+</html>",
+  }
+
+  file { '/var/www/html/icinga-book.jpg':
+    ensure => file,
+    source => 'puppet:///modules/profile/apache/icinga-book.jpg',
   }
 }
 

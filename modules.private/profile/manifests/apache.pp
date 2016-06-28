@@ -72,7 +72,7 @@ class profile::apache::www {
 }
 
 class profile::apache::online {
-  require profile::apache
+  include profile::apache
 
   file { '/etc/ssl/online.icinga-book.net.key':
     ensure => file,
@@ -104,7 +104,7 @@ class profile::apache::online {
 }
 
 class profile::apache::cash {
-  require profile::apache
+  include profile::apache
 
   file { '/etc/ssl/cash.icinga-book.net.key':
     ensure => file,

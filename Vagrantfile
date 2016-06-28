@@ -10,6 +10,7 @@ nodes = { 'draco'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000016',
+            :memory   => '1024',
           },
           'antlia'  => {
             :box      => 'centos-7.2-x64-virtualbox',
@@ -60,6 +61,7 @@ nodes = { 'draco'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000011',
+            :memory   => '1024',
           },
         }
 
@@ -80,7 +82,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.gui = false
         vb.customize ["modifyvm", :id,
           "--groups", "/Icinga Book",
-          "--memory", "512",
+          "--memory", "384",
           "--audio", "none",
           "--usb", "on",
           "--usbehci", "off",
@@ -88,6 +90,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           "--intnet2", "intnet",
           "--macaddress2", options[:mac],
         ]
+        vb.memory = options[:memory] if options[:memory]
       end
       node_config.ssh.forward_agent = true
       node_config.vm.provision :shell,
@@ -133,7 +136,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         "--intnet2", "intnet2",
       ]
     end
-    kmw.vm.synced_folder "~/puppetcode", "/root/puppetcode"
   end
 
   config.vm.define "sculptor" do |sculptor|
@@ -144,16 +146,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.define "aquarius" do |aquarius|
+    config.vm.network :forwarded_port, guest: 8080, host: 8080, id: "tomcat", auto_correct: true
+  end
+
   config.vm.define "fornax" do |fornax|
     fornax.vm.network :private_network, :adapter => 3, ip: "192.168.56.10"
 #    fornax.vm.network :public_network, :adapter => 4, type: "dhcp"
-    fornax.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id,
-        "--memory", "1024",
+#    fornax.vm.provider :virtualbox do |vb|
+#      vb.customize ["modifyvm", :id,
 #        "--hostonlyadapter3", "vboxnet0",
 #        "--bridgeadapter4", "en5: Thunderbolt-Ethernet",
-      ]
-    end
+#      ]
+#    end
     fornax.vm.synced_folder "~/puppetcode", "/root/puppetcode"
   end
 

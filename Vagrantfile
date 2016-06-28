@@ -32,11 +32,11 @@ nodes = { 'draco'  => {
 #            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
 #            :mac      => '020027000014',
 #          },
-#          'phoenix'  => {
-#            :box      => 'centos-7.2-x64-virtualbox',
-#            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-#            :mac      => '020027000015',
-#          },
+          'phoenix'  => {
+            :box      => 'centos-7.2-x64-virtualbox',
+            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :mac      => '020027000015',
+          },
 #          'andromeda'  => {
 #            :box      => 'w2k12r2',
 #            :url      => 'http://boxes.netways.org/vagrant/windows/w2k12r2-x64-virtualbox.box',

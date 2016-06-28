@@ -1,0 +1,3 @@
+---
+icinga2::ensure: stopped
+icinga2::enable: false

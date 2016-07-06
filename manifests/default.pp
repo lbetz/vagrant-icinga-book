@@ -1,3 +1,9 @@
+case $operatingsystem {
+  'windows': {
+    Package { provider => chocolatey, }
+  }
+}
+
 node "draco" {
   include profile::base
   include profile::icinga2::agent
@@ -31,6 +37,7 @@ node "kmw" {
 }
 
 node "andromeda" {
+  include profile::icinga2::agent
 }
 
 node default {

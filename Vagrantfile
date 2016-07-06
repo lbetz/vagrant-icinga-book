@@ -10,7 +10,7 @@ nodes = { 'draco'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000016',
-            :memory   => '1024',
+            :memory   => '512',
           },
           'antlia'  => {
             :box      => 'centos-7.2-x64-virtualbox',
@@ -38,9 +38,10 @@ nodes = { 'draco'  => {
             :mac      => '020027000015',
           },
 #          'andromeda'  => {
-#            :box      => 'w2k12r2',
+#            :box      => 'w2k12r2-x64-virtualbox',
 #            :url      => 'http://boxes.netways.org/vagrant/windows/w2k12r2-x64-virtualbox.box',
 #            :mac      => '020027000022',
+#            :memory   => '1024',
 #          },
           'kmw'  => {
             :box      => 'centos-7.2-x64-virtualbox',
@@ -61,7 +62,7 @@ nodes = { 'draco'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000011',
-            :memory   => '1024',
+            :memory   => '512',
           },
         }
 
@@ -94,7 +95,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
       node_config.ssh.forward_agent = true
       node_config.vm.provision :shell,
-          :path => 'scripts/pre-install.sh'
+          :path => 'scripts/pre-install.sh' if options[:box] != "w2k12r2-x64-virtualbox"
+      node_config.vm.provision :shell,
+          :path => 'scripts/pre-install.bat' if options[:box] == "w2k12r2-x64-virtualbox"
       node_config.vm.provision :puppet do |puppet|
         puppet.manifests_path = "manifests"
         puppet.module_path = [ "modules.private", "modules" ]
@@ -102,14 +105,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
     end
   end
-
-#  config.vm.define "andromeda" do |andromeda|
-#    andromeda.vm.provision :shell,
-#      :path => 'scripts/pre-install.bat'
-#    andromeda.vm.provider :virtualbox do |vb|
-#      vb.customize ["modifyvm", :id, "--memory", "1024"]
-#    end
-#  end
 
   config.vm.define "draco" do |draco|
     draco.vm.network :private_network, :adapter => 2, ip: "172.16.1.254"
@@ -144,10 +139,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       vb.customize ["modifyvm", :id, "--nic2", "intnet"]
       vb.customize ["modifyvm", :id, "--intnet2", "intnet2" ]
     end
-  end
-
-  config.vm.define "aquarius" do |aquarius|
-    config.vm.network :forwarded_port, guest: 8080, host: 8080, id: "tomcat", auto_correct: true
   end
 
   config.vm.define "fornax" do |fornax|

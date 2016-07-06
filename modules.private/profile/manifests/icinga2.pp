@@ -1,37 +1,40 @@
 class profile::icinga2::base {
   include icinga2
   include icinga2::feature::api
-  include profile::nagios::plugins
 
-  user { 'icinga':
-    ensure  => present,
-    uid     => '498',
-    shell   => '/bin/bash',
-    groups  => [ 'nagios' ],
-    require => Class['icinga2::install'],
-    notify  => Class['icinga2::service'],
-  }
+  if $::kernel != 'windows' {
+    include profile::nagios::plugins
 
-  ssh_authorized_key { 'icinga@fornax':
-    ensure => present,
-    key    => 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCp6KmsaI43afIYVMqNiujdMww9ZaVNwH0vpMZUw6W8ichvR533jyLbg25E15oXS0fAyQ3t+4B5QxuUPCZodJHUf3ZCnKL1hzZzboQt9XrCuiQC+8xo97sYP1iD+bhWbsZVMeJQXXZH1S/B5j6t/k5WBs7QTLNG4foXZYPwKdd8aar/0H7y6/ASJ0unVcvUgbP/75/CoW+8DQuUQU6zFFFakUWsW2YVxfpHHMGDVnkTr4OIocZxSOQ7g6csVSHHgivUCt1aAPQmVj9FnL9b4o9e1pTVUCi6uJqzTRXlFG8OLXSjhDoHNfNd7UCoKefcdWUzGd1tRCtbbvzMGcH0JzaMw7VF/Xx8E6KBo9c///LxuJjMHZSLe4P881LbY/gXhB3iwLAMapESSpbRZ3QRrRK1deAdZaKRuEJym7boIpAMsrsyuQ0Ky3TuBAVR7/RNAQiCGlcVbiQlZCKGfDqg9guuafOTcyPP2VclSnsoIdK2tlp6EaMu9nYmlHFdeaix0KLezAKRyEJUHZ1hz/f0G2n/iSUxLeGk4ToG9FIPSKhOCA+0GYnTOvVEmSUUpjTi387G5xjBdKhOTG5w+KL81/HEgX2i7eyGsY0ZBxEPKBTFzwu0HUz+nzetB8n8AXmvAw4Kju5o6gGaNcCgtnqWTIcmuRyfKXoR1qKoyFzrFkl2Xw==',
-    type   => 'ssh-rsa',
-    user   => 'icinga',
-  }
+    user { 'icinga':
+      ensure  => present,
+      shell   => '/bin/bash',
+      groups  => [ 'nagios' ],
+      require => Package['icinga2'],
+      notify  => Class['icinga2::service'],
+    }
 
-  file_line { 'disable_conf.d':
-    ensure => absent,
-    path   => '/etc/icinga2/icinga2.conf',
-    line   => 'include_recursive "conf.d"',
-    notify => Class['icinga2::service'],
-  }
+    ssh_authorized_key { 'icinga@fornax':
+      ensure  => present,
+      key     => 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCp6KmsaI43afIYVMqNiujdMww9ZaVNwH0vpMZUw6W8ichvR533jyLbg25E15oXS0fAyQ3t+4B5QxuUPCZodJHUf3ZCnKL1hzZzboQt9XrCuiQC+8xo97sYP1iD+bhWbsZVMeJQXXZH1S/B5j6t/k5WBs7QTLNG4foXZYPwKdd8aar/0H7y6/ASJ0unVcvUgbP/75/CoW+8DQuUQU6zFFFakUWsW2YVxfpHHMGDVnkTr4OIocZxSOQ7g6csVSHHgivUCt1aAPQmVj9FnL9b4o9e1pTVUCi6uJqzTRXlFG8OLXSjhDoHNfNd7UCoKefcdWUzGd1tRCtbbvzMGcH0JzaMw7VF/Xx8E6KBo9c///LxuJjMHZSLe4P881LbY/gXhB3iwLAMapESSpbRZ3QRrRK1deAdZaKRuEJym7boIpAMsrsyuQ0Ky3TuBAVR7/RNAQiCGlcVbiQlZCKGfDqg9guuafOTcyPP2VclSnsoIdK2tlp6EaMu9nYmlHFdeaix0KLezAKRyEJUHZ1hz/f0G2n/iSUxLeGk4ToG9FIPSKhOCA+0GYnTOvVEmSUUpjTi387G5xjBdKhOTG5w+KL81/HEgX2i7eyGsY0ZBxEPKBTFzwu0HUz+nzetB8n8AXmvAw4Kju5o6gGaNcCgtnqWTIcmuRyfKXoR1qKoyFzrFkl2Xw==',
+      type    => 'ssh-rsa',
+      user    => 'icinga',
+      require => Class['icinga2'],
+    }
 
-  file_line { 'enable_contrib_plugins':
-    ensure => present,
-    path   => '/etc/icinga2/icinga2.conf',
-    line   => 'include <plugins-contrib>',
-    match  => '// include <plugins-contrib>',
-    notify => Class['icinga2::service'],
+    file_line { 'disable_conf.d':
+      ensure  => absent,
+      path    => '/etc/icinga2/icinga2.conf',
+      line    => 'include_recursive "conf.d"',
+      notify  => Class['icinga2::service'],
+    }
+
+    file_line { 'enable_contrib_plugins':
+      ensure  => present,
+      path    => '/etc/icinga2/icinga2.conf',
+      line    => 'include <plugins-contrib>',
+      match   => '// include <plugins-contrib>',
+      notify  => Class['icinga2::service'],
+    }
   }
 }
 

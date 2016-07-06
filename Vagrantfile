@@ -17,11 +17,11 @@ nodes = { 'draco'  => {
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000212',
           },
-          'carina'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-            :mac      => '020027000012',
-          },
+#          'carina'  => {
+#            :box      => 'centos-7.2-x64-virtualbox',
+#            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+#            :mac      => '020027000012',
+#          },
           'gmw'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',

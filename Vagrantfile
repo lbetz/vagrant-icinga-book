@@ -150,7 +150,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 #        "--bridgeadapter4", "en5: Thunderbolt-Ethernet",
 #      ]
 #    end
-    fornax.vm.synced_folder "~/puppetcode", "/root/puppetcode"
   end
 
 end

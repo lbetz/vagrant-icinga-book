@@ -17,5 +17,3 @@ if %_minor% lss 1 goto :eof
 
 @echo on
 start /wait wusa "%hotfix%" /quiet
-
-choco install -y puppet

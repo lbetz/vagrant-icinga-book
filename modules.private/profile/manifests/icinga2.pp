@@ -126,6 +126,14 @@ class profile::icinga2::master {
     global => true,
   }
 
+  file_line { 'enable_nscp_plugins':
+    ensure  => present,
+    path    => '/etc/icinga2/icinga2.conf',
+    line    => 'include <nscp>',
+    match   => '// include <nscp>',
+    notify  => Class['icinga2::service'],
+  }
+
   file { '/var/lib/icinga2/ca':
     ensure  => directory,
     recurse => true,
@@ -138,6 +146,7 @@ class profile::icinga2::master {
     recurse => true,
     purge   => true,
     source  => 'puppet:///modules/profile/icinga2/zones.d',
+    notify  => Class['icinga2::service'],
   }
 
 }
@@ -155,6 +164,14 @@ class profile::icinga2::slave {
   }
   icinga2::zone { ['global-templates', 'windows-commands', 'linux-commands']:
     global => true,
+  }
+
+  file_line { 'enable_nscp_plugins':
+    ensure  => present,
+    path    => '/etc/icinga2/icinga2.conf',
+    line    => 'include <nscp>',
+    match   => '// include <nscp>',
+    notify  => Class['icinga2::service'],
   }
 }
 
@@ -174,6 +191,19 @@ class profile::icinga2::agent {
     }
     icinga2::zone { 'dmz':
       endpoints => [ 'sculptor' ],
+    }
+  }
+
+  case $::kernel {
+    'windows': {
+      icinga2::zone { 'windows-commands':
+        global => true,
+      }
+    }
+    'linux': {
+      icinga2::zone { 'linux-commands':
+        global => true,
+      }
     }
   }
 

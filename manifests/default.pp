@@ -37,6 +37,7 @@ node "kmw" {
 }
 
 node "andromeda" {
+  include profile::base
   include profile::icinga2::agent
   class { 'nscp':
     ensure => stopped,

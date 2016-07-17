@@ -1,16 +1,23 @@
 class profile::base {
   stage { 'first': } -> stage { 'repos': } -> Stage['main']
 
-  class { 'ntp':
-    stage => 'first',
-  } ->
+  case $::kernel {
+    'windows': {
+    }
+
+    default: {
+      class { 'ntp':
+        stage => 'first',
+      } ->
+
+      class { 'repos::icinga':
+        stage => 'repos',
+      }
+    }
+  }
 
   class { 'network':
     stage => 'first',
-  }
-
-  class { 'repos::icinga':
-    stage => 'repos',
   }
 
 }

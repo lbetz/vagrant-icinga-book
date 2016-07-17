@@ -199,6 +199,11 @@ class profile::icinga2::agent {
       icinga2::zone { 'windows-commands':
         global => true,
       }
+      file { 'C:/ProgramData/icinga2/etc/icinga2/scripts/check_time.vbs':
+        ensure             => file,
+        source_permissions => ignore,
+        source             => 'puppet:///modules/profile/icinga2/scripts/check_time.vbs',
+      }
     }
     'linux': {
       icinga2::zone { 'linux-commands':

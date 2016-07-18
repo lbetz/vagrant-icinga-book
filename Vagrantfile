@@ -37,12 +37,12 @@ nodes = { 'draco'  => {
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000015',
           },
-#          'andromeda'  => {
-#            :box      => 'w2k12r2-x64-virtualbox',
-#            :url      => 'http://boxes.netways.org/vagrant/windows/w2k12r2-x64-virtualbox.box',
-#            :mac      => '020027000022',
-#            :memory   => '1024',
-#          },
+          'andromeda'  => {
+            :box      => 'w2k12r2-x64-virtualbox',
+            :url      => 'http://boxes.netways.org/vagrant/windows/w2k12r2-x64-virtualbox.box',
+            :mac      => '020027000022',
+            :memory   => '1024',
+          },
           'kmw'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
@@ -117,6 +117,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "antlia" do |antlia|
     antlia.vm.network :private_network, :adapter => 2, type: "dhcp"
+    antlia.vm.network "forwarded_port", guest: 80, host: 8080
+    antlia.vm.network "forwarded_port", guest: 443, host: 8443
     antlia.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--nic2", "intnet"]
       vb.customize ["modifyvm", :id, "--intnet2", "intnet2" ]

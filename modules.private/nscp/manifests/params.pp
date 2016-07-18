@@ -4,6 +4,7 @@ class nscp::params {
     'windows': {
       $package = 'nscp'
       $service = 'nscp'
+      $config  = 'C:/Program Files/NSClient++/nsclient.ini'
     }
 
     default: {

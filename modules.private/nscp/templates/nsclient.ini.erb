@@ -1,0 +1,16 @@
+[/settings/default]
+allowed hosts = 172.16.1.11,127.0.0.1,::1
+
+[/settings/NRPE/server]
+insecure = true
+use ssl = true
+port = 5666
+allow arguments = true
+allow nasty characters = true
+
+[/modules]
+NRPEServer = 1
+CheckExternalScripts = 1
+CheckHelpers = 1
+CheckEventLog = 1
+CheckNSCP = 1

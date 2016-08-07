@@ -20,21 +20,6 @@ class profile::icinga2::base {
       user    => 'icinga',
       require => Class['icinga2'],
     }
-
-    file_line { 'disable_conf.d':
-      ensure  => absent,
-      path    => '/etc/icinga2/icinga2.conf',
-      line    => 'include_recursive "conf.d"',
-      notify  => Class['icinga2::service'],
-    }
-
-    file_line { 'enable_contrib_plugins':
-      ensure  => present,
-      path    => '/etc/icinga2/icinga2.conf',
-      line    => 'include <plugins-contrib>',
-      match   => '// include <plugins-contrib>',
-      notify  => Class['icinga2::service'],
-    }
   }
 }
 
@@ -126,14 +111,6 @@ class profile::icinga2::master {
     global => true,
   }
 
-  file_line { 'enable_nscp_plugins':
-    ensure  => present,
-    path    => '/etc/icinga2/icinga2.conf',
-    line    => 'include <nscp>',
-    match   => '// include <nscp>',
-    notify  => Class['icinga2::service'],
-  }
-
   file { '/var/lib/icinga2/ca':
     ensure  => directory,
     recurse => true,
@@ -203,6 +180,7 @@ class profile::icinga2::agent {
         ensure             => file,
         source_permissions => ignore,
         source             => 'puppet:///modules/profile/icinga2/scripts/check_time.vbs',
+        require            => Class['icinga2'],
       }
     }
     'linux': {

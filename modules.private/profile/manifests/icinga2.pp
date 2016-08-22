@@ -123,7 +123,8 @@ class profile::icinga2::master {
     recurse => true,
     purge   => true,
     source  => 'puppet:///modules/profile/icinga2/zones.d',
-    notify  => Class['icinga2::service'],
+    #notify => Class['icinga2::service'],
+    tag     => 'icinga2::file',
   }
 
 }

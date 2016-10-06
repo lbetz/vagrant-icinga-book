@@ -12,6 +12,9 @@ mod "herculesteam/augeasproviders_core"
 mod "herculesteam/augeasproviders_shellvar"
 mod "puppetlabs/chocolatey"
 mod "puppetlabs/powershell"
+mod "theforeman/puppet"
+mod "puppet/extlib"
 
 mod "icinga2",
-  :git => 'https://github.com/lbetz/puppet-icinga2'
+  :git => 'https://github.com/icinga/puppet-icinga2-rewrite',
+  :ref => 'bug/file-permission-on-windows-12837'

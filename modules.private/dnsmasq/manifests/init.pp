@@ -31,17 +31,18 @@ class dnsmasq::config {
     source => 'puppet:///modules/dnsmasq/icinga-book.net',
   }
 
-  file { '/etc/hosts.dnsmasq':
+  #file { '/etc/hosts.dnsmasq':
+  file { '/etc/hosts':
     ensure => file,
     source => 'puppet:///modules/dnsmasq/hosts',
   }
 
-  file_line { 'activate own hosts file':
-    ensure => present,
-    path   => '/etc/dnsmasq.conf',
-    line   => 'addn-hosts=/etc/hosts.dnsmasq',
-    match  => '^#addn-hosts=',
-  }
+  #  file_line { 'activate own hosts file':
+  #  ensure => present,
+  #  path   => '/etc/dnsmasq.conf',
+  #  line   => 'addn-hosts=/etc/hosts.dnsmasq',
+  #  match  => '^#addn-hosts=',
+  #}
 
 }
 

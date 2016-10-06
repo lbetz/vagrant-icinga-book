@@ -1,5 +1,7 @@
+127.0.0.1   draco localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
 172.16.1.11 fornax.icinga-book.local fornax
-172.16.1.12 carina.icinga-book.local carina
+172.16.1.12 carina.icinga-book.local carina puppet.icinga-book.local puppet
 172.16.1.13 gmw.icinga-book.local gmw
 172.16.1.14 sextans.icinga-book.local sextans
 172.16.1.15 phoenix.icinga-book.local phoenix

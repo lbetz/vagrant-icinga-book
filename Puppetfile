@@ -16,5 +16,4 @@ mod "theforeman/puppet"
 mod "puppet/extlib"
 
 mod "icinga2",
-  :git => 'https://github.com/icinga/puppet-icinga2-rewrite',
-  :ref => 'bug/file-permission-on-windows-12837'
+  :git => 'https://github.com/Icinga/puppet-icinga2-rewrite.git'

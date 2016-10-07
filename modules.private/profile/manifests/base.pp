@@ -19,5 +19,4 @@ class profile::base {
   class { 'network':
     stage => 'first',
   }
-
 }

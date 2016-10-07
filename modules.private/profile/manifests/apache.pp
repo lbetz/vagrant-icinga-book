@@ -1,20 +1,19 @@
-class profile::apache {
-  include ::apache
+class profile::apache::icinga {
+  class { ::apache:
+    purge_configs => false
+  }
+
   include ::apache::mod::status
 }
 
-class profile::apache::pgsql {
-  include profile::apache
+class profile::apache::www {
+  include ::apache
+  include ::apache::mod::status
 
   package { 'php-pgsql':
     ensure => installed,
     before => Class[Apache],
   }
-}
-
-class profile::apache::www {
-  require profile::apache
-  require profile::apache::pgsql
 
   apache::vhost { 'www.icinga-book.net':
     port               => '80',
@@ -78,7 +77,8 @@ Icinga Buch
 }
 
 class profile::apache::online {
-  include profile::apache
+  include ::apache
+  include ::apache::mod::status
 
   file { '/etc/ssl/online.icinga-book.net.key':
     ensure => file,
@@ -110,7 +110,8 @@ class profile::apache::online {
 }
 
 class profile::apache::cash {
-  include profile::apache
+  include ::apache
+  include ::apache::mod::status
 
   file { '/etc/ssl/cash.icinga-book.net.key':
     ensure => file,

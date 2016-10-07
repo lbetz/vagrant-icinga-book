@@ -40,12 +40,12 @@ class profile::postfix::groupware {
   }
   file { '/etc/postfix/ssl/server.key':
     ensure => file,
-    source => 'puppet:///modules/profile/private_keys/gmw.key',
+    source => 'puppet:///modules/profile/private_keys/gmw.icinga-book.local.key',
     mode   => '0600',
   }
   file { '/etc/postfix/ssl/server.crt':
     ensure => file,
-    source => 'puppet:///modules/profile/certs/gmw.crt',
+    source => 'puppet:///modules/profile/certs/gmw.icinga-book.local.crt',
   }
 
   package { 'dovecot':

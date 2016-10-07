@@ -31,12 +31,12 @@ class profile::ldap::server {
 
   file { '/etc/openldap/ssl/slapd.key':
     ensure => file,
-    source => 'puppet:///modules/profile/private_keys/gmw.key',
+    source => 'puppet:///modules/profile/private_keys/gmw.icinga-book.local.key',
     mode   => '0600',
   } ->
   file { '/etc/openldap/ssl/slapd.pem':
     ensure => file,
-    source => 'puppet:///modules/profile/certs/gmw.crt',
+    source => 'puppet:///modules/profile/certs/gmw.icinga-book.local.crt',
   }
 
   openldap::server::database { 'dc=icinga-book,dc=local':

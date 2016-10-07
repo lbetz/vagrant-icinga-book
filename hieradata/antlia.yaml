@@ -1,4 +1,3 @@
 ---
 apache::mod::status::allow_from:
   - 172.16.2.11
-icinga2::feature::api::parent: dmz

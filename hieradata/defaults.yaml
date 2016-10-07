@@ -2,13 +2,3 @@
 network::dns: 'no'
 apache::mod::status::allow_from:
   - 172.16.1.11
-icinga2::conf_d: false
-icinga2::itl_plugins:
-  - plugins
-  - plugins-contrib
-icinga2::constants:
-  NodeName: "%{::hostname}"
-  ZoneName: "%{::hostname}"
-icinga2::feature::api::accept_config: true
-icinga2::feature::api::accept_commands: true
-icinga2::feature::api::parent: master

@@ -12,16 +12,17 @@ nodes = { 'draco'  => {
             :mac      => '020027000016',
             :memory   => '512',
           },
+          'carina'  => {
+            :box      => 'centos-7.2-x64-virtualbox',
+            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :mac      => '020027000012',
+            :memory   => '1024',
+          },
           'antlia'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000212',
           },
-#          'carina'  => {
-#            :box      => 'centos-7.2-x64-virtualbox',
-#            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-#            :mac      => '020027000012',
-#          },
           'gmw'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
@@ -83,7 +84,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.gui = false
         vb.customize ["modifyvm", :id,
           "--groups", "/Icinga Book",
-          "--memory", "384",
+          "--memory", "256",
           "--audio", "none",
           "--usb", "on",
           "--usbehci", "off",
@@ -143,15 +144,17 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
+  config.vm.define "carina" do |carina|
+   carina.vm.synced_folder "./modules", "/etc/puppet/modules"
+   carina.vm.synced_folder "./modules.private", "/etc/puppet/environments/common"
+  end
+
+#  config.vm.define "andromeda" do |andromeda|
+#    andromeda.vm.network :private_network, :adapter => 2, ip: "172.16.1.22"
+#  end
+
   config.vm.define "fornax" do |fornax|
     fornax.vm.network :private_network, :adapter => 3, ip: "192.168.56.10"
-#    fornax.vm.network :public_network, :adapter => 4, type: "dhcp"
-#    fornax.vm.provider :virtualbox do |vb|
-#      vb.customize ["modifyvm", :id,
-#        "--hostonlyadapter3", "vboxnet0",
-#        "--bridgeadapter4", "en5: Thunderbolt-Ethernet",
-#      ]
-#    end
   end
 
 end

@@ -5,10 +5,7 @@ case $operatingsystem {
 }
 
 node "draco" {
-  include profile::base
-  include profile::icinga2::agent
-  include profile::router
-  include dnsmasq
+  include role::gateway
 }
 
 node "antlia" {
@@ -20,12 +17,11 @@ node "aquarius" {
 }
 
 node "fornax" {
-  include role::monitorserver
+  include role::monitor::master
 }
 
 node "sculptor" {
-  include profile::base
-  include profile::icinga2::slave
+  include role::monitor::satellite
 }
 
 node "gmw" {
@@ -37,15 +33,13 @@ node "kmw" {
 }
 
 node "andromeda" {
-  include profile::base
-  include profile::icinga2::agent
-  class { 'nscp':
-    ensure => stopped,
-    enable => false,
-  }
+  include role::ads
+}
+
+node "carina" {
+  include role::puppetmaster
 }
 
 node default {
   include profile::base
-  include profile::icinga2::agent
 }

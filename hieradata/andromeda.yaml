@@ -1,5 +1,0 @@
----
-icinga2::itl_plugins:
-  - plugins
-  - windows-plugins
-  - nscp

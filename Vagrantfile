@@ -34,9 +34,9 @@ nodes = { 'draco'  => {
 #            :mac      => '020027000014',
 #          },
           'phoenix'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :box      => 'dploeger/oracle-XE-11.2-x86_64',
             :mac      => '020027000015',
+            :memory   => '1024',
           },
           'andromeda'  => {
             :box      => 'w2k12r2-x64-virtualbox',
@@ -76,7 +76,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define name do |node_config|
       node_config.vm.box = options[:box]
       node_config.vm.hostname = name
-      node_config.vm.box_url = options[:url]
+      node_config.vm.box_url = options[:url] if options[:url]
       node_config.vm.network :private_network, :adapter => 2, type: "dhcp"
       node_config.vm.provider :virtualbox do |vb|
         vb.linked_clone = true if Vagrant::VERSION =~ /^1.8/

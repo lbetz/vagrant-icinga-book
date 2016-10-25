@@ -1,3 +1,8 @@
+# Introduction
+
+This is the setup described and used in the [Icinga 2 book](http://amzn.to/2eOU1ey).
+
+The original project for these files is the version of [lbetz](https://github.com/lbetz/vagrant-icinga-book). All others are forks and might be used to create pull requests and patches.
 
 # Requirements
 

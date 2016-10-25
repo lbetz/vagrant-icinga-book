@@ -16,18 +16,7 @@ class profile::icinga2::icingaweb2(){
   }
 
 
- # contain '::mysql::server'
- # contain '::mysql::client'
- # contain '::mysql::server::account_security'
-
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
-
- # ::mysql::db { $web_db_name:
- #   user     => $web_db_user,
- #   password => $web_db_pass,
- #   host     => 'localhost',
- #   grant    => ['ALL'],
- # }
 
   mysql::db { $web_db_name:
     user     => $web_db_user,

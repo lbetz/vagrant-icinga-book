@@ -15,10 +15,8 @@ mod "puppetlabs/powershell"
 mod "theforeman/puppet"
 mod "puppet/extlib"
 mod "puppetlabs/inifile"
+mod "jriviere/windows_ad"
 
-mod "windows_domain_controller",
-  :git => 'https://github.com/martezr/puppet-windows_domain_controller.git',
-  :ref => '0.1.3'
 mod "icinga2",
   :git => 'https://github.com/Icinga/puppet-icinga2-rewrite.git',
   :ref => 'v0.5.0'

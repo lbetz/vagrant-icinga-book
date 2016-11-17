@@ -1,6 +1,7 @@
 class role::icinga2::master {
   include profile::icinga2::master
   include profile::icinga2::classicui
+  include profile::icinga2::icingaweb2
 }
 
 class role::icinga2::slave {

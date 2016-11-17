@@ -155,6 +155,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.define "fornax" do |fornax|
     fornax.vm.network :private_network, :adapter => 3, ip: "192.168.56.10"
+    fornax.vm.network "forwarded_port", guest: 80, host: 8081
   end
 
 end

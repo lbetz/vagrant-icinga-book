@@ -14,6 +14,10 @@ mod "puppetlabs/chocolatey"
 mod "puppetlabs/powershell"
 mod "theforeman/puppet"
 mod "puppet/extlib"
+mod "puppetlabs/inifile" 
 
 mod "icinga2",
   :git => 'https://github.com/Icinga/puppet-icinga2-rewrite.git'
+
+mod "icingaweb2",
+  :git => 'https://github.com/Icinga/puppet-icingaweb2.git'

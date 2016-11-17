@@ -4,6 +4,7 @@ class profile::apache::icinga {
   }
 
   include ::apache::mod::status
+  include ::apache::mod::php
 }
 
 class profile::apache::www {

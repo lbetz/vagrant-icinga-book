@@ -8,6 +8,7 @@ class profile::icinga2::master(
   include profile::icinga2::pki
   include profile::icinga2::plugins
   include profile::icinga2::sshkey
+  include profile::icinga2::icingaweb2
 
   File {
     owner => 'icinga',

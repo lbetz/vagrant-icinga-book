@@ -15,5 +15,9 @@ mod "puppetlabs/powershell"
 mod "theforeman/puppet"
 mod "puppet/extlib"
 
+mod "windows_domain_controller",
+  :git => 'https://github.com/martezr/puppet-windows_domain_controller.git',
+  :ref => '0.1.3'
 mod "icinga2",
   :git => 'https://github.com/Icinga/puppet-icinga2-rewrite.git'
+  :ref => '0.5.0'

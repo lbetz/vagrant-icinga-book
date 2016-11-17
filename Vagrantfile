@@ -3,34 +3,34 @@
 
 nodes = { 'draco'  => {
             :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000099',
           },
           'aquarius'  => {
             :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000016',
             :memory   => '512',
           },
           'carina'  => {
             :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000012',
             :memory   => '1024',
           },
           'antlia'  => {
             :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000212',
           },
           'gmw'  => {
             :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000013',
           },
 #          'sextans'  => {
 #            :box      => 'centos-7.2-x64-virtualbox',
-#            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+#            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
 #            :mac      => '020027000014',
 #          },
           'phoenix'  => {
@@ -40,28 +40,28 @@ nodes = { 'draco'  => {
           },
           'andromeda'  => {
             :box      => 'w2k12r2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/windows/w2k12r2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/windows/w2k12r2-x64-virtualbox.box',
             :mac      => '020027000022',
             :memory   => '1024',
           },
           'kmw'  => {
             :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000213',
           },
 #          'sagittarius'  => {
 #            :box      => 'centos-7.2-x64-virtualbox',
-#            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+#            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
 #            :mac      => '020027000214',
 #          },
           'sculptor'  => {
             :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000211',
           },
           'fornax'  => {
             :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.netways.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000011',
             :memory   => '512',
           },

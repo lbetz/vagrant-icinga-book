@@ -2,7 +2,7 @@ class profile::ads {
   include profile::base
 
   class { 'nscp':
-    ensure => stopped,
+    ensure => running,
     enable => false,
   }
 }

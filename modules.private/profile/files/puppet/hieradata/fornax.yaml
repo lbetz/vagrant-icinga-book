@@ -13,3 +13,4 @@ profile::icinga2::master::zones:
     endpoints:
       - sculptor.icinga-book.net
     parent: master
+mysql::server::root_password: vagrant

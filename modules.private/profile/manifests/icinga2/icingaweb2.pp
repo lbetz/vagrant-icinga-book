@@ -8,14 +8,6 @@ class profile::icinga2::icingaweb2(){
   $web_db_pass = hiera('profile::icinga2::master::web_db_pass')
 
 
-  # very dirty hack to work around the icinga web 2 modules enforcement of .my.cnf credentials
-
-  file { "my.cnf":
-    ensure => "file",
-    path => "/root/.my.cnf",
-  }
-
-
   Exec { path => [ '/bin/', '/sbin/' , '/usr/bin/', '/usr/sbin/' ] }
 
   mysql::db { $web_db_name:
@@ -23,7 +15,6 @@ class profile::icinga2::icingaweb2(){
     password => $web_db_pass,
     host     => 'localhost',
     grant    => ['ALL'],
-    require  => File['my.cnf'],
   }
 
 

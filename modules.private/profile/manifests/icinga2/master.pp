@@ -54,7 +54,8 @@ class profile::icinga2::master(
   # MySQL user to monitor this DBMS
   mysql_user { 'monitor@localhost':
     ensure        => 'present',
-    password_hash => mysql_password('monitor')
+    password_hash => mysql_password('monitor'),
+    require       => Class['mysql::server'],
   }
 
   mysql_grant { 'monitor@localhost/*.*':

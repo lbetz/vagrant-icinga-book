@@ -27,4 +27,9 @@ class profile::ads {
     localadminpassword     => 'vagrant',
   }
 
+  exec { 'Set-DomainPassword-Policy':
+    command     => 'Set-ADDefaultDomainPasswordPolicy -Identity ADS -ComplexityEnabled $False -MaxPasswordAge 0',
+    provider    => powershell,
+  }
+
 }

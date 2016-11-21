@@ -33,14 +33,14 @@ nodes = { 'draco'  => {
 #            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
 #            :mac      => '020027000014',
 #          },
-          'phoenix'  => {
-            :box      => 'dploeger/oracle-XE-11.2-x86_64',
-            :mac      => '020027000015',
-            :memory   => '1024',
-          },
+#          'phoenix'  => {
+#            :box      => 'dploeger/oracle-XE-11.2-x86_64',
+#            :mac      => '020027000015',
+#            :memory   => '1024',
+#          },
           'andromeda'  => {
             :box      => 'w2k12r2-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/windows/w2k12r2-x64-virtualbox.box',
+            :url      => 'http://boxes.icinga.org/vagrant/private/w2k12r2.box',
             :mac      => '020027000022',
             :memory   => '1024',
           },
@@ -149,9 +149,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
    carina.vm.synced_folder "./modules.private", "/etc/puppet/environments/common"
   end
 
-#  config.vm.define "andromeda" do |andromeda|
-#    andromeda.vm.network :private_network, :adapter => 2, ip: "172.16.1.22"
-#  end
+  config.vm.define "andromeda" do |andromeda|
+    andromeda.vm.provider :virtualbox do |vb|
+      vb.gui = true
+    end
+  end
 
   config.vm.define "fornax" do |fornax|
     fornax.vm.network :private_network, :adapter => 3, ip: "192.168.56.10"

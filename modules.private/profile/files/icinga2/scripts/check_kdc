@@ -1,0 +1,100 @@
+#!/bin/sh
+
+# Check Kerberos KDC functioning for Nagios by getting a ticket using a keytab.
+# Dave Love <fx@gnu.org>, 2005-07-15
+
+if [ -f /bin/basename ]; then
+    PROGNAME=`/bin/basename $0`
+else
+    PROGNAME=`/usr/bin/basename $0`
+fi
+REVISION=1.0
+PROGPATH=`echo $0 | /bin/sed -e 's,[\\/][^\\/][^\\/]*$,,'`
+
+. $PROGPATH/utils.sh
+
+usage () {
+    echo "\
+Kerberos 5 KDC plugin for Nagios
+
+-H, --hostname=HOST	Name of KDC to check
+-P, --port=PORT		Port on which KDC runs (default 88)
+-p, --principal=NAME	Principal name to authenticate as (including realm)
+-k, --keytab=FILE	Keytab file containing principal's key
+-h, --help 		Print this help
+--version 		Print version"
+}
+
+help () {
+    print_revision $PROGNAME $REVISION
+    echo; usage; echo; support
+}
+
+cleanup () {
+    kdestroy -c "$cc" >/dev/null 2>/dev/null
+    rm -f "$conf"
+    exit $state
+}
+
+maketemp () {
+    # We may or may not have mktemp, and it may or may not require an arg.
+    TMPDIR=${TMPDIR:-/tmp}
+    ( mktemp ) 2>/dev/null ||
+    ( mktemp "$TMPDIR/nagios.XXXXXX" ) 2>/dev/null ||
+    echo "$TMPDIR/nagios.$$"
+}
+
+port=88
+while [ $# -gt 0 ]; do
+    case $1 in
+	-h|--help) help; exit $STATE_OK;;
+	-H|--hostname) shift; kdc=$1; shift;;
+	-P|--port) shift; port=$1; shift;;
+	-p|--principal) shift; principal=$1; shift;;
+	-k|--keytab) shift; keytab=$1; shift;;
+        --version | -V)
+            print_revision $PROGNAME $REVISION
+            exit $STATE_OK;;
+	*) usage; exit $STATE_UNKNOWN;;
+    esac
+done
+if [ -z "$kdc" -o -z "$principal" -o -z "$keytab" ]; then
+    usage; exit $STATE_UNKNOWN
+fi
+case $principal in
+    *@*) ;;
+    *) usage; exit $STATE_UNKNOWN;;
+esac
+kdc=${kdc}:${port}
+realm=`echo $principal|sed -e s/.*@//`
+
+state=$STATE_CRITICAL
+trap cleanup EXIT
+
+conf=`maketemp`
+
+cat >"$conf" <<EOF
+[libdefaults]
+default_realm = $realm
+[realms]
+$realm = { 
+kdc = $kdc
+}
+[appdefaults]
+krb4_get_tickets = false
+EOF
+
+cc=`maketemp`
+
+# NB, Heimdal may give something like
+# `kinit: NOTICE: ticket renewable lifetime is 1 week'
+# on stderr when it succeeds.
+err=`KRB5_CONFIG=$conf /bin/kinit -c "$cc" -k -t "$keytab" "$principal" 2>&1`
+
+if [ $? -eq 0 ]; then
+    echo OK
+    state=$STATE_OK
+else
+    echo "CRITICAL Getting Kerberos ticket: `echo $err | head -n 1`"
+fi
+

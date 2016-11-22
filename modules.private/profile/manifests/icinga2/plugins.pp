@@ -8,4 +8,14 @@ class profile::icinga2::plugins {
     'nagios-plugins-jmx4perl' ]:
     ensure => installed,
   }
+
+  package { 'krb5-workstation':
+    ensure => installed,
+  }
+
+  file { '/usr/lib64/nagios/plugins/check_kdc':
+    ensure => file,
+    mode   => '0755',
+    source => 'puppet:///modules/profile/icinga2/scripts/check_kdc',
+  }
 }

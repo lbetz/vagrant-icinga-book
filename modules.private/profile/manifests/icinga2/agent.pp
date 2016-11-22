@@ -28,6 +28,12 @@ class profile::icinga2::agent(
         source             => 'puppet:///modules/profile/icinga2/scripts/check_time.vbs',
         require            => Class['icinga2'],
       }
+      file { 'C:/ProgramData/icinga2/etc/icinga2/scripts/check_ad.vbs':
+        ensure             => file,
+        source_permissions => ignore,
+        source             => 'puppet:///modules/profile/icinga2/scripts/check_ad.vbs',
+        require            => Class['icinga2'],
+      }
       icinga2::object::zone { 'windows-commands':
         global => true,
       }

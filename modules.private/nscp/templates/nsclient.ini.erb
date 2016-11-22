@@ -18,3 +18,14 @@ CheckExternalScripts = 1
 CheckHelpers = 1
 CheckEventLog = 1
 CheckNSCP = 1
+
+[/settings/external scripts]
+allow arguments = true
+allow nasty characters = true
+
+[/settings/external scripts/wrappings]
+vbs=cscript.exe //T:30 //NoLogo scripts/%SCRIPT% %ARGS%
+
+[/settings/external scripts/wrapped scripts]
+check_ad=custom/check_ad.vbs
+check_time=custom/check_time.vbs $ARG1$ $ARG2$ $ARG3$

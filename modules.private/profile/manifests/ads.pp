@@ -6,6 +6,19 @@ class profile::ads {
     enable => true,
   }
 
+  file { 'C:/Program Files/NSClient++/scripts/custom/check_time.vbs':
+    ensure             => file,
+    source_permissions => ignore,
+    source             => 'puppet:///modules/profile/icinga2/scripts/check_time.vbs',
+    require            => Class['nscp'],
+  }
+  file { 'C:/Program Files/NSClient++/scripts/custom/check_ad.vbs':
+    ensure             => file,
+    source_permissions => ignore,
+    source             => 'puppet:///modules/profile/icinga2/scripts/check_ad.vbs',
+    require            => Class['nscp'],
+  }
+
   class { 'windows_ad':
     install                => present,
     installmanagementtools => true,
@@ -27,4 +40,14 @@ class profile::ads {
     localadminpassword     => 'vagrant',
   }
 
+  windows_ad::user{ 'icinga':
+    ensure               => present,
+    domainname           => 'icinga-book.ads',
+    path                 => 'CN=Users,DC=icinga-book,DC=ads',
+    accountname          => 'icinga',
+    fullname             => 'icinga',
+    passwordneverexpires => true,
+    passwordlength       => '8',
+    password             => 'agh4ieKu',
+  }
 }

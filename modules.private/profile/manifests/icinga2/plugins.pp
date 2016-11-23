@@ -18,4 +18,14 @@ class profile::icinga2::plugins {
     mode   => '0755',
     source => 'puppet:///modules/profile/icinga2/scripts/check_kdc',
   }
+
+  package { ['squid', 'perl-Nagios-Plugin']:
+    ensure => installed,
+  }
+
+  file { '/usr/lib64/nagios/plugins/check_squid':
+    ensure => file,
+    mode   => '0755',
+    source => 'puppet:///modules/profile/icinga2/scripts/check_squid',
+  }
 }

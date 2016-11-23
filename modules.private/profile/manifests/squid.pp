@@ -6,7 +6,7 @@ class profile::squid::extern {
     ],
     http_access         => [
       'allow icinga-book.net',
-      'allow icinga manager',
+      'allow manager icinga',
     ],
     template            => 'short',
     use_deprecated_opts => false,
@@ -21,7 +21,7 @@ class profile::squid::intern {
     ],
     http_access         => [
       'allow icinga-book.local',
-      'allow icinga manager',
+      'allow manager icinga',
     ],
     config_array        => [
       'cache_peer 172.16.2.14 parent 3128 0',

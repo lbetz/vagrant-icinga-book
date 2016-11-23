@@ -8,7 +8,7 @@ class profile::base {
     default: {
       class { 'ntp':
         stage => 'first',
-      } ->
+      }
 
       class { 'repos::icinga':
         stage => 'repos',

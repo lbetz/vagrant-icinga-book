@@ -40,6 +40,14 @@ node "carina" {
   include role::puppetmaster
 }
 
+node "sagittarius" {
+  include role::proxy::extern
+}
+
+node "sextans" {
+  include role::proxy::intern
+}
+
 node default {
   include profile::base
 }

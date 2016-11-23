@@ -28,11 +28,11 @@ nodes = { 'draco'  => {
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000013',
           },
-#          'sextans'  => {
-#            :box      => 'centos-7.2-x64-virtualbox',
-#            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-#            :mac      => '020027000014',
-#          },
+          'sextans'  => {
+            :box      => 'centos-7.2-x64-virtualbox',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :mac      => '020027000014',
+          },
 #          'phoenix'  => {
 #            :box      => 'dploeger/oracle-XE-11.2-x86_64',
 #            :mac      => '020027000015',
@@ -49,11 +49,11 @@ nodes = { 'draco'  => {
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000213',
           },
-#          'sagittarius'  => {
-#            :box      => 'centos-7.2-x64-virtualbox',
-#            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-#            :mac      => '020027000214',
-#          },
+          'sagittarius'  => {
+            :box      => 'centos-7.2-x64-virtualbox',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :mac      => '020027000214',
+          },
           'sculptor'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
@@ -141,6 +141,16 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     sculptor.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--nic2", "intnet"]
       vb.customize ["modifyvm", :id, "--intnet2", "intnet2" ]
+    end
+  end
+
+  config.vm.define "sagittarius" do |sagittarius|
+    sagittarius.vm.network :private_network, :adapter => 2, type: "dhcp"
+    sagittarius.vm.provider :virtualbox do |vb|
+      vb.customize [ "modifyvm", :id,
+        "--nic2", "intnet",
+        "--intnet2", "intnet2",
+      ]
     end
   end
 

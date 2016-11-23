@@ -1,4 +1,5 @@
 class profile::icinga2::master(
+  $manage_config = false,
   $ido_dbpassword,
   $endpoints,
   $zones,
@@ -77,13 +78,15 @@ class profile::icinga2::master(
   }
 
   # Icinga2 configuration of monitored hosts and services
-  file { '/etc/icinga2/zones.d':
-    ensure             => directory,
-    recurse            => true,
-    force              => true,
-    purge              => true,
-    source             => 'puppet:///modules/profile/icinga2/zones.d',
-    source_permissions => 'ignore',
-    tag                => 'icinga2::config::file',
+  if $manage_config {
+    file { '/etc/icinga2/zones.d':
+      ensure             => directory,
+      recurse            => true,
+      force              => true,
+      purge              => true,
+      source             => 'puppet:///modules/profile/icinga2/zones.d',
+      source_permissions => 'ignore',
+      tag                => 'icinga2::config::file',
+    }
   }
 }

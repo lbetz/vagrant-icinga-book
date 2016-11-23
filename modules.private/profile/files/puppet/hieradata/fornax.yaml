@@ -1,4 +1,5 @@
 ---
+profile::icinga2::master::manage_config: true
 profile::icinga2::master::ido_dbpassword: x9jrzq23
 profile::icinga2::master::web_db_pass: bietjicAn1
 profile::icinga2::master::endpoints:

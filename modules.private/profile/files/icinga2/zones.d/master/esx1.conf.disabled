@@ -1,0 +1,10 @@
+object Host "esx1.icinga-book.local" {
+  import "esx-host"
+
+  display_name = "esx1"
+
+  address = "10.0.10.150"
+
+  vars.vmware_username = "root"
+  vars.vmware_password = "netways"
+}

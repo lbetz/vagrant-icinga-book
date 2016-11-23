@@ -25,7 +25,9 @@ allow nasty characters = true
 
 [/settings/external scripts/wrappings]
 vbs=cscript.exe //T:30 //NoLogo scripts/%SCRIPT% %ARGS%
+ps1=cmd /c echo scripts/%SCRIPT% %ARGS%; exit($lastexitcode) | powershell.exe -command -
 
 [/settings/external scripts/wrapped scripts]
+check_updates=custom/check_windows_updates.ps1
 check_ad=custom/check_ad.vbs
 check_time=custom/check_time.vbs $ARG1$ $ARG2$ $ARG3$

@@ -2,4 +2,3 @@
 network::dns: 'yes'
 network::stage: 'first'
 ntp::server: true
-puppet::client_certname: draco.icinga-book.local

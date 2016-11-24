@@ -1,6 +1,6 @@
 class role::gateway {
   include profile::base
-  include profile::puppet::agent
   include profile::router
+  include profile::icinga2::agent
   include dnsmasq
 }

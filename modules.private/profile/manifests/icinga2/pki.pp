@@ -1,6 +1,7 @@
 class profile::icinga2::pki(
   $certname = $::fqdn
 ) {
+
   case $::osfamily {
     'windows': {
       File {

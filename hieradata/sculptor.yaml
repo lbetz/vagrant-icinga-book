@@ -1,2 +1,20 @@
 ---
-puppet::client_certname: sculptor.icinga-book.net
+icinga2::constants:
+  NodeName: "%{::hostname}.icinga-book.net"
+  ZoneName: "%{::hostname}.icinga-book.net"
+icinga2::feature::api::ssl_key_path: "/etc/icinga2/pki/%{::hostname}.icinga-book.net.key"
+icinga2::feature::api::ssl_cert_path: "/etc/icinga2/pki/%{::hostname}.icinga-book.net.crt"
+profile::icinga2::pki::certname: "%{::hostname}.icinga-book.net"
+profile::icinga2::slave::zone_name: dmz
+profile::icinga2::slave::endpoints:
+  'sculptor.icinga-book.net': {}
+  'fornax.icinga-book.local':
+    host: 172.16.1.11
+profile::icinga2::slave::zones:
+  master:
+    endpoints:
+      - fornax.icinga-book.local
+  dmz:
+    endpoints:
+      - sculptor.icinga-book.net
+    parent: master

@@ -1,13 +1,14 @@
 class profile::icinga2::base {
 
+  include profile::icinga2::plugins
+
   if $::osfamily != 'windows' {
-    include profile::nagios::plugins
     user { 'icinga':
       ensure  => present,
       shell   => '/bin/bash',
       groups  => [ 'nagios' ],
       home    => '/var/spool/icinga2',
-      require => Class['profile::nagios::plugins'],
+      require => Class['profile::icinga2::plugins'],
     }
 
     file { '/var/spool/icinga2':

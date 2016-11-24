@@ -1,2 +1,0 @@
----
-puppet::client_certname: aquarius.icinga-book.local

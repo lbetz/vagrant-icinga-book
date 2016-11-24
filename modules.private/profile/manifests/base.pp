@@ -10,7 +10,7 @@ class profile::base {
         stage => 'first',
       }
 
-      class { 'repos::icinga':
+      class { ['repos::icinga', 'repos::plugins']:
         stage => 'repos',
       }
     }

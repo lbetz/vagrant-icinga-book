@@ -1,0 +1,15 @@
+object Endpoint "carina.icinga-book.local" {
+}
+
+object Zone "carina.icinga-book.local" {
+  endpoints = [ "carina.icinga-book.local" ]
+  parent = "master"
+}
+
+object Host "carina.icinga-book.local" {
+  import "linux-host"
+  import "lan-host"
+
+  display_name = "carina"
+  address = "172.16.1.12"
+}

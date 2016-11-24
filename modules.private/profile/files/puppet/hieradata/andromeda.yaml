@@ -1,7 +1,0 @@
----
-icinga2::constants:
-  NodeName: andromeda.icinga-book.local
-  ZoneName: andromeda.icinga-book.local
-icinga2::feature::api::ssl_key_path: 'C:/ProgramData/icinga2/etc/icinga2/pki/andromeda.icinga-book.local.key'
-icinga2::feature::api::ssl_cert_path: 'C:/ProgramData/icinga2/etc/icinga2/pki/andromeda.icinga-book.local.crt'
-profile::icinga2::pki::certname: andromeda.icinga-book.local

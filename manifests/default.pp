@@ -8,12 +8,12 @@ node "draco" {
   include role::gateway
 }
 
-node "antlia" {
-  include role::webserver
-}
-
 node "aquarius" {
   include role::appserver
+}
+
+node "antlia" {
+  include role::webserver
 }
 
 node "fornax" {
@@ -50,5 +50,4 @@ node "sextans" {
 
 node default {
   include profile::base
-  include profile::puppet::agent
 }

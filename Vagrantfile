@@ -12,12 +12,12 @@ nodes = { 'draco'  => {
             :mac      => '020027000016',
             :memory   => '512',
           },
-          'carina'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-            :mac      => '020027000012',
-            :memory   => '1024',
-          },
+#          'carina'  => {
+#            :box      => 'centos-7.2-x64-virtualbox',
+#            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+#            :mac      => '020027000012',
+#            :memory   => '1024',
+#          },
           'antlia'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',

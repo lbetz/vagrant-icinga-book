@@ -1,7 +1,0 @@
----
-icinga2::constants:
-  NodeName: draco.icinga-book.local
-  ZoneName: draco.icinga-book.local
-icinga2::feature::api::ssl_key_path: /etc/icinga2/pki/draco.icinga-book.local.key
-icinga2::feature::api::ssl_cert_path: /etc/icinga2/pki/draco.icinga-book.local.crt
-profile::icinga2::pki::certname: draco.icinga-book.local

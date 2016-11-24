@@ -1,2 +1,19 @@
 ---
-puppet::client_certname: sagittarius.icinga-book.net
+icinga2::constants:
+  NodeName: "%{::hostname}.icinga-book.net"
+  ZoneName: "%{::hostname}.icinga-book.net"
+icinga2::feature::api::ssl_key_path: "/etc/icinga2/pki/%{::hostname}.icinga-book.net.key"
+icinga2::feature::api::ssl_cert_path: "/etc/icinga2/pki/%{::hostname}.icinga-book.net.crt"
+profile::icinga2::pki::certname: "%{::hostname}.icinga-book.net"
+profile::icinga2::agent::endpoints:
+  NodeName: {}
+  'sculptor.icinga-book.net':
+    host: 172.16.2.11
+profile::icinga2::agent::zones:
+  ZoneName:
+    endpoints:
+      - NodeName
+    parent: dmz
+  dmz:
+    endpoints:
+      - sculptor.icinga-book.net

@@ -154,10 +154,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     end
   end
 
-  config.vm.define "carina" do |carina|
-   carina.vm.synced_folder "./modules", "/etc/puppet/modules"
-   carina.vm.synced_folder "./modules.private", "/etc/puppet/environments/common"
-  end
+#  config.vm.define "carina" do |carina|
+#   carina.vm.synced_folder "./modules", "/etc/puppet/modules"
+#   carina.vm.synced_folder "./modules.private", "/etc/puppet/environments/common"
+#  end
 
   config.vm.define "andromeda" do |andromeda|
     andromeda.vm.provider :virtualbox do |vb|

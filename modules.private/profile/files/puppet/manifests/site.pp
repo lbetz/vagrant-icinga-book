@@ -20,7 +20,7 @@ node "sagittarius.icinga-book.net" {
   include role::icinga2::ssh
 }
 
-node "andromeda.icinga-book.local" {
+node /^andromeda/ {
 }
 
 node default {

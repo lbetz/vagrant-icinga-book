@@ -1,3 +1,4 @@
 ---
+puppet::client_certname: gmw.icinga-book.local
 postfix::master_cf_source: 'puppet:///modules/profile/groupware/master.cf'
 postfix::main_cf_source: 'puppet:///modules/profile/groupware/main.cf'

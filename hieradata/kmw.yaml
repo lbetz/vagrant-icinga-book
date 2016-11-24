@@ -1,3 +1,4 @@
 ---
+puppet::client_certname: kmw.icinga-book.net
 postfix::master_cf_source: 'puppet:///modules/profile/mailrelay/master.cf'
 postfix::main_cf_source: 'puppet:///modules/profile/mailrelay/main.cf'

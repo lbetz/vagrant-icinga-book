@@ -1,4 +1,11 @@
-class profile::puppetmaster {
+class profile::puppet::agent {
+
+  include puppet
+
+}
+
+
+class profile::puppet::master {
 
   class { 'puppet':
     server                => true,

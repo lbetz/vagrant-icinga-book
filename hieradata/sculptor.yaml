@@ -1,0 +1,2 @@
+---
+puppet::client_certname: sculptor.icinga-book.net

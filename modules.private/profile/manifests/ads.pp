@@ -45,15 +45,4 @@ class profile::ads {
     installdns             => 'yes',
     localadminpassword     => 'vagrant',
   }
-
-  windows_ad::user{ 'icinga':
-    ensure               => present,
-    domainname           => 'icinga-book.ads',
-    path                 => 'CN=Users,DC=icinga-book,DC=ads',
-    accountname          => 'icinga',
-    fullname             => 'icinga',
-    passwordneverexpires => true,
-    passwordlength       => '8',
-    password             => 'agh4ieKu',
-  }
 }

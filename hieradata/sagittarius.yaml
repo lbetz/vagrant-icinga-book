@@ -1,0 +1,2 @@
+---
+puppet::client_certname: sagittarius.icinga-book.net

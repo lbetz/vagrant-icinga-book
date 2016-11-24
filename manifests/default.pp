@@ -37,7 +37,7 @@ node "andromeda" {
 }
 
 node "carina" {
-  include role::puppetmaster
+  include role::puppet::master
 }
 
 node "sagittarius" {
@@ -50,4 +50,5 @@ node "sextans" {
 
 node default {
   include profile::base
+  include profile::puppet::agent
 }

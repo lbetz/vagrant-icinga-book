@@ -12,6 +12,17 @@ node "phoenix.icinga-book.local" {
   include role::icinga2::ssh
 }
 
+node "sextans.icinga-book.local" {
+  include role::icinga2::ssh
+}
+
+node "sagittarius.icinga-book.net" {
+  include role::icinga2::ssh
+}
+
+node "andromeda.icinga-book.local" {
+}
+
 node default {
   include role::icinga2::agent
 }

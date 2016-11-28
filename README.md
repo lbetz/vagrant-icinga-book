@@ -38,7 +38,7 @@ The configuration files contain all monitoring objects i.e. hosts, services etc.
     $ vi hieradata/fornax.yaml
       profile::icinga2::master::manage_config: false
 
-# Description of virual machines
+# Description of virtual machines
 
 All machines are located to one of two networks. The internal network `icinga-book.local` (172.16.1.0/24) is connected to the dmz `icinga-book.net` (172.16.2.0/24) via the default gateway `draco`.
 

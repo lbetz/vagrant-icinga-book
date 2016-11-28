@@ -24,10 +24,62 @@ Example for OSX:
 
     $ vagrant up --provider virtualbox
 
-After you started all nodes, you have to login to  the nodes and issue `puppet agent -t`. Since `carina is the puppetmaster, it has to be up and running during your puppet runs.
-
 ## Run a minimal setup
 
-Since these boxes were created to simulate an entire network, at least the gateway node `draco` is needed to run other boxes. If you want to use Puppet to provision the setup as it was intended, you need `carina`, too, before starting any other node.
+Since these boxes were created to simulate an entire network, at least the gateway node `draco` is needed to run other boxes.
 
-The node `fornax` is the Icinga 2 master - you will want to start experimenting with this node but you should start it as the last of the setup.
+The node `fornax` is the Icinga 2 master - you will want to start experimenting with this node but you should start it as the last of the setup. As default the monitoring configuration is deployed so that all machines are monitored.
+
+## Disable monitoring configuration
+
+The configuration files contain all monitoring objects i.e. hosts, services etc. are stored in modules.private/profile/files/icinga2/zones.d/ and will be deployed to /etc/icinga2/zones.d on `fornax` automatically during the provision process. To disable this behavoir edit the following file before provisioning the VM `fornax`:
+
+    $ cd vagrant-icinga-book
+    $ vi hieradata/fornax.yaml
+      profile::icinga2::master::manage_config: false
+
+# Description of virual machines
+
+All machines are located to one of two networks. The internal network `icinga-book.local` (172.16.1.0/24) is connected to the dmz `icinga-book.net` (172.16.2.0/24) via the default gateway `draco`.
+
+All machines are CenOS 7 if nothing different is descripted.
+
+## draco
+
+Default gateway to the internat with DHCP, DNS for both zones. Host with two local interfaces for both network zones and a NAT interface as gateway to the internet.
+
+## aquarius (internal net)
+
+Contains a Postgresql DBMS with database `drupal` for the website `www.icinga-book.net/drupal` and a tomcat based application server.
+
+## antlia (dmz)
+
+Has an installed Apache webserver with three virtual hosts. An internet portal `www.icinga-book.net` in english and german, `online.icinga-book.net` via HTTPS simulate an online shop and `cash.icinga-book.net` via HTTPS serves a receipt page. If you set a name solution for all three names to 127.0.0.1 i.e. in your hosts file you can access the HTTP pages via port 8080 and the HTTPS pages via 8443. Both ports are forwarded to the VM.
+
+## gmw (internal net)
+
+Installation of Postfix and Dovecot. The Postfix is listing on smtp and submission, the dovecot is configured for IMAPS.
+
+## kmw (dmz)
+
+Mail relay for `gmw` with postfix (SMTP) and clamav (unix socket).
+
+## sextans (internal net)
+
+A squid installation as webproxy on standard port 3128. The traffic is rerouted to the external squid on `sagittarius`.
+
+## sagittarius (dmz)
+
+The external webproxy for connections from the internal squid and all hosts in the dmz.
+
+## andromeda (internal net)
+
+A Windows Server 2012 R2 VM with an Active Directory `icinga-book.ads` or `ADS` (netbios name).
+
+## sculptor (dmz)
+
+The Icinga 2 Satellit for all checks to the dmz.
+
+## fornax (internal net)
+
+Icinga 2, Icinga Web 2, MySQL DBMS and databases for both (`icinga` and `icingaweb2`). The VM has an additional net interface with the ip 192.168.56.10 that is accessable from your local machine via 192.168.56.1.

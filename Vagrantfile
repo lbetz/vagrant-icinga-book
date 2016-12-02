@@ -54,6 +54,12 @@ nodes = { 'draco'  => {
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000214',
           },
+          'canis' => {
+            :box      => 'centos-7.2-x64-virtualbox',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :mac      => '020027000223',
+            :memory   => '1024',
+          },
           'sculptor'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
@@ -163,6 +169,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     andromeda.vm.provider :virtualbox do |vb|
       vb.gui = true
     end
+  end
+
+  config.vm.define "canis" do |canis|
+    canis.vm.network :private_network, :adapter => 3, ip: "192.168.56.23"
+    canis.vm.synced_folder "./logstash-indexer", "/etc/logstash/conf.d"
   end
 
   config.vm.define "fornax" do |fornax|

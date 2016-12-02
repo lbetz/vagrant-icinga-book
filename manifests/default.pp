@@ -48,6 +48,11 @@ node "sextans" {
   include role::proxy::intern
 }
 
+node "canis" {
+  include role::elasticstack
+  include profile::filebeat
+}
+
 node default {
   include profile::base
 }

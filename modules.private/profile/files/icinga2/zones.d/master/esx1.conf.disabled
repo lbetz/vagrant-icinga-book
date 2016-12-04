@@ -3,7 +3,7 @@ object Host "esx1.icinga-book.local" {
 
   display_name = "esx1"
 
-  address = "10.0.10.150"
+  address = "192.168.124.181"
 
   vars.vmware_username = "root"
   vars.vmware_password = "netways"

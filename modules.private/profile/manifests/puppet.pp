@@ -13,7 +13,7 @@ class profile::puppet::master {
     server_reports        => 'store',
     server_external_nodes => '',
     server_environments   => [],
-    autosign_entries      => ['*'],
+    autosign_entries      => ['icinga-book.local', 'icinga-book.net'],
   }
 
   file { '/etc/hiera.yaml':

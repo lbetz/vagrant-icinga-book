@@ -2,9 +2,10 @@ object Host "triangulum" {
   import "windows-host"
   import "mssql-dbms"
 
-  address = "10.0.10.31"
+  address = "192.168.124.196"
 
   vars.noagent = true
+
   vars.mssql_health_username = "TRIANGULUM\\Administrator"
   vars.mssql_health_password = "agh4ieKu"
 }

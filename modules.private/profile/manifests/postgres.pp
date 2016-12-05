@@ -4,6 +4,29 @@ class profile::postgres {
     listen_addresses => '*',
   }
 
+  # PuppetDB
+  class { '::postgresql::server::contrib': }
+
+  postgresql::server::db { 'puppetdb':
+    user     => 'puppetdb',
+    password => 'puppetdb',
+    grant    => 'all',
+  }
+
+  postgresql::server::extension { 'pg_trgm':
+    database => 'puppetdb',
+  }
+
+  postgresql::server::pg_hba_rule { 'allow puppet to access puppetdb':
+    description => "Open up PostgreSQL for access from 172.16.1.12/32",
+    type        => 'host',
+    database    => 'puppetdb',
+    user        => 'puppetdb',
+    address     => '172.16.1.12/32',
+    auth_method => 'md5',
+  }
+
+  # Icinga: User grant to monitor the DBMS and databases
   postgresql::server::pg_hba_rule { 'allow icinga to access postgresql':
     description => "Open up PostgreSQL for access from 172.16.1.11/32",
     type        => 'host',

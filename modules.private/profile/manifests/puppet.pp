@@ -7,13 +7,21 @@ class profile::puppet::agent {
 
 class profile::puppet::master {
 
-  class { 'puppet':
-    server                => true,
-    server_foreman        => false,
-    server_reports        => 'store',
-    server_external_nodes => '',
-    server_environments   => [],
-    autosign_entries      => ['icinga-book.local', 'icinga-book.net'],
+  class { '::puppet':
+    server                      => true,
+    server_foreman              => false,
+    server_reports              => 'store',
+    server_storeconfigs_backend => 'puppetdb',
+    server_external_nodes       => '',
+    server_environments         => [],
+    autosign_entries            => ['icinga-book.local', 'icinga-book.net'],
+  }
+
+  class { '::puppetdb::master::config':
+    terminus_package    => 'puppetdb-terminus',
+    strict_validation   => false,
+    manage_storeconfigs => false,
+    restart_puppet      => false,
   }
 
   file { '/etc/hiera.yaml':
@@ -43,5 +51,15 @@ class profile::puppet::master {
     source  => 'puppet:///modules/profile/puppet/manifests',
     require => Class['puppet'],
   }
+}
 
+
+class profile::puppet::puppetdb {
+
+  class { '::puppetdb::server':
+    manage_firewall   => false,
+    database_host     => 'aquarius.icinga-book.local',
+    database_password => 'puppetdb',
+    confdir           => '/etc/puppetdb/conf.d/',
+  }
 }

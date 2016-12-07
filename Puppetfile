@@ -16,6 +16,7 @@ mod "theforeman/puppet"
 mod "puppet/extlib"
 mod "puppetlabs/inifile"
 mod "jriviere/windows_ad"
+mod "puppetlabs/puppetdb"
 
 mod "icinga2",
   :git => 'https://github.com/Icinga/puppet-icinga2-rewrite.git',

@@ -1,0 +1,9 @@
+filebeat.prospectors:
+- input_type: log
+  paths:
+    - /var/log/messages
+  document_type: syslog
+output.logstash:
+  hosts: ["logstash01:5044","logstash02:5044"]
+  loadbalance: true
+

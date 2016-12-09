@@ -10,7 +10,9 @@ class profile::base {
         stage => 'first',
       }
 
-      class { ['repos::icinga', 'repos::plugins']:
+      include vim
+
+      class { ['repos::icinga', 'repos::plugins', 'repos::elastic']:
         stage => 'repos',
       }
     }
@@ -19,4 +21,10 @@ class profile::base {
   class { 'network':
     stage => 'first',
   }
+
+  host { 'logstash01':
+    ensure => 'present',
+    ip     => '192.168.56.23',
+  }
+
 }

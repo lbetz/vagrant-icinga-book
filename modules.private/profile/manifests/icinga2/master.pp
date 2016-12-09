@@ -9,7 +9,6 @@ class profile::icinga2::master(
   include profile::icinga2::pki
   include profile::icinga2::plugins::additional
   include profile::icinga2::sshkey
-  include vim
 
   File {
     owner => 'icinga',

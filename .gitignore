@@ -1,4 +1,4 @@
 *.swp
-.vagrant
+.vagrant/*
 .DS_Store
-modules/*
+puppet/*/modules/*

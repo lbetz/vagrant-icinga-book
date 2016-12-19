@@ -28,10 +28,20 @@ nodes = { 'draco'  => {
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000013',
           },
+          'kmw'  => {
+            :box      => 'centos-7.2-x64-virtualbox',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :mac      => '020027000213',
+          },
           'sextans'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000014',
+          },
+          'sagittarius'  => {
+            :box      => 'centos-7.2-x64-virtualbox',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :mac      => '020027000214',
           },
 #          'phoenix'  => {
 #            :box      => 'dploeger/oracle-XE-11.2-x86_64',
@@ -43,16 +53,6 @@ nodes = { 'draco'  => {
             :url      => 'http://boxes.icinga.org/vagrant/private/w2k12r2.box',
             :mac      => '020027000022',
             :memory   => '1024',
-          },
-          'kmw'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-            :mac      => '020027000213',
-          },
-          'sagittarius'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-            :mac      => '020027000214',
           },
           'sculptor'  => {
             :box      => 'centos-7.2-x64-virtualbox',
@@ -100,8 +100,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node_config.vm.provision :shell,
           :path => 'scripts/pre-install.bat' if options[:box] == "w2k12r2-x64-virtualbox"
       node_config.vm.provision :puppet do |puppet|
-        puppet.manifests_path = "manifests"
-        puppet.module_path = [ "modules.private", "modules" ]
+        puppet.environment = "provision"
+        puppet.environment_path = "puppet"
         puppet.hiera_config_path = "hiera.yaml"
       end
     end

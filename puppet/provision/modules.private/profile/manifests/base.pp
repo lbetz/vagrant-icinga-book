@@ -7,7 +7,8 @@ class profile::base {
 
     default: {
       class { '::ntp':
-        stage => 'first',
+        stage   => 'first',
+        require => Class[::network],
       }
 
       class { ['::repos::epel', '::repos::icinga', '::repos::plugins']:

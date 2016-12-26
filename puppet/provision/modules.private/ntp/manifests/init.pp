@@ -6,16 +6,6 @@ class ntp(
     ensure => installed,
   }
 
-  -> class { '::ntp::config': }
-
-  ~> service { 'ntpd':
-    ensure => running,
-    enable => true,
-  }
-
-}
-
-class ntp::config {
   if $ntp::server {
     file { '/etc/ntp.conf':
       ensure  => file,
@@ -23,6 +13,15 @@ class ntp::config {
       group   => 'root',
       mode    => '0644',
       source  => 'puppet:///modules/ntp/ntp.conf',
+      require => Package['ntp'],
+      notify  => Service['ntpd'],
     }
   }
+
+  service { 'ntpd':
+    ensure  => running,
+    enable  => true,
+    require => Package['ntp'],
+  }
+
 }

@@ -26,6 +26,10 @@ nodes = { 'draco'  => {
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000212',
             :net      => 'icinga-book.net',
+            :forwarded => {
+              '443' => '8443',
+              '80'  => '8080',
+            },
           },
           'gmw'  => {
             :box      => 'centos-7.3-x64-virtualbox',
@@ -90,9 +94,9 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node_config.vm.box = options[:box]
       node_config.vm.hostname = name
       node_config.vm.box_url = options[:url] if options[:url]
-      node_config.vm.network :private_network, :adapter => 2, type: "dhcp"
+      node_config.vm.network :private_network, type: "dhcp", virtualbox__intnet: options[:net]
       node_config.vm.provider :virtualbox do |vb|
-        vb.linked_clone = true if Vagrant::VERSION =~ /^1.8/
+        vb.linked_clone = true if Vagrant::VERSION =~ /^1.[89]/
         vb.name = name
         vb.gui = options[:gui]
         vb.customize ["modifyvm", :id,
@@ -112,6 +116,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           :path => 'scripts/pre-install.sh' if options[:box] != "w2k12r2-x64-virtualbox"
       node_config.vm.provision :shell,
           :path => 'scripts/pre-install.bat' if options[:box] == "w2k12r2-x64-virtualbox"
+
+      if options[:forwarded]
+        options[:forwarded].each_pair do |guest, local|
+          node_config.vm.network "forwarded_port", guest: guest, host: local
+        end
+      end
+
       node_config.vm.provision :puppet do |puppet|
         puppet.environment = "provision"
         puppet.environment_path = "puppet"
@@ -125,8 +136,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "draco" do |draco|
-    draco.vm.network :private_network, :adapter => 2, ip: "172.16.1.254"
-    draco.vm.network :private_network, :adapter => 3, ip: "172.16.2.254"
+    draco.vm.network :private_network, ip: "172.16.1.254", virtualbox__intnet: "icinga-book.local"
+    draco.vm.network :private_network, ip: "172.16.2.254", virtualbox__intnet: "icinga-book.net"
     draco.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--nic3", "intnet"]
       vb.customize ["modifyvm", :id, "--intnet3", "icinga-book.net" ]

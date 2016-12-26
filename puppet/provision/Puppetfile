@@ -1,7 +1,6 @@
 forge "http://forge.puppetlabs.com"
 
 mod "puppetlabs/apache"
-mod "puppetlabs/apt"
 mod "puppetlabs/stdlib"
 mod "puppetlabs/concat"
 mod "binford2k/drupal", "0.0.3"

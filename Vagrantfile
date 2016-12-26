@@ -2,68 +2,81 @@
 # vi: set ft=ruby :
 
 nodes = { 'draco'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
+            :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000099',
+            :net      => 'icinga-book.local',
           },
           'aquarius'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
+            :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000016',
             :memory   => '512',
+            :net      => 'icinga-book.local',
           },
 #          'carina'  => {
-#            :box      => 'centos-7.2-x64-virtualbox',
+#            :box      => 'centos-7.3-x64-virtualbox',
 #            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
 #            :mac      => '020027000012',
 #            :memory   => '1024',
+#            :net      => 'icinga-book.local',
 #          },
           'antlia'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
+            :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000212',
+            :net      => 'icinga-book.net',
           },
           'gmw'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
+            :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000013',
+            :net      => 'icinga-book.local',
           },
           'kmw'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
+            :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000213',
+            :net      => 'icinga-book.net',
           },
           'sextans'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
+            :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000014',
+            :net      => 'icinga-book.local',
           },
           'sagittarius'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
+            :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000214',
+            :net      => 'icinga-book.net',
           },
 #          'phoenix'  => {
 #            :box      => 'dploeger/oracle-XE-11.2-x86_64',
 #            :mac      => '020027000015',
 #            :memory   => '1024',
+#            :net      => 'icinga-book.local',
 #          },
           'andromeda'  => {
             :box      => 'w2k12r2-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/private/w2k12r2.box',
             :mac      => '020027000022',
             :memory   => '1024',
+            :net      => 'icinga-book.local',
+            :gui      => true,
           },
           'sculptor'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
+            :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000211',
+            :net      => 'icinga-book.net',
           },
           'fornax'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
+            :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000011',
             :memory   => '512',
+            :net      => 'icinga-book.local',
           },
         }
 
@@ -81,15 +94,15 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node_config.vm.provider :virtualbox do |vb|
         vb.linked_clone = true if Vagrant::VERSION =~ /^1.8/
         vb.name = name
-        vb.gui = false
+        vb.gui = options[:gui]
         vb.customize ["modifyvm", :id,
-          "--groups", "/Icinga Book",
+          "--groups", "/Icinga Book/" + options[:net],
           "--memory", "256",
           "--audio", "none",
           "--usb", "on",
           "--usbehci", "off",
           "--nic2", "intnet",
-          "--intnet2", "intnet",
+          "--intnet2", options[:net],
           "--macaddress2", options[:mac],
         ]
         vb.memory = options[:memory] if options[:memory]
@@ -103,6 +116,10 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         puppet.environment = "provision"
         puppet.environment_path = "puppet"
         puppet.hiera_config_path = "hiera.yaml"
+        puppet.facter = {
+          "domain" => options[:net],
+          "fqdn"   => name + "." + options[:net],
+        }
       end
     end
   end
@@ -112,58 +129,19 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     draco.vm.network :private_network, :adapter => 3, ip: "172.16.2.254"
     draco.vm.provider :virtualbox do |vb|
       vb.customize ["modifyvm", :id, "--nic3", "intnet"]
-      vb.customize ["modifyvm", :id, "--intnet3", "intnet2" ]
+      vb.customize ["modifyvm", :id, "--intnet3", "icinga-book.net" ]
     end
   end
 
-  config.vm.define "antlia" do |antlia|
-    antlia.vm.network :private_network, :adapter => 2, type: "dhcp"
-    antlia.vm.network "forwarded_port", guest: 80, host: 8080
-    antlia.vm.network "forwarded_port", guest: 443, host: 8443
-    antlia.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--nic2", "intnet"]
-      vb.customize ["modifyvm", :id, "--intnet2", "intnet2" ]
-    end
-  end
-
-  config.vm.define "kmw" do |kmw|
-    kmw.vm.network :private_network, :adapter => 2, type: "dhcp"
-    kmw.vm.provider :virtualbox do |vb|
-      vb.customize [ "modifyvm", :id,
-        "--nic2", "intnet",
-        "--intnet2", "intnet2",
-      ]
-    end
-  end
-
-  config.vm.define "sculptor" do |sculptor|
-    sculptor.vm.network :private_network, :adapter => 2, type: "dhcp"
-    sculptor.vm.provider :virtualbox do |vb|
-      vb.customize ["modifyvm", :id, "--nic2", "intnet"]
-      vb.customize ["modifyvm", :id, "--intnet2", "intnet2" ]
-    end
-  end
-
-  config.vm.define "sagittarius" do |sagittarius|
-    sagittarius.vm.network :private_network, :adapter => 2, type: "dhcp"
-    sagittarius.vm.provider :virtualbox do |vb|
-      vb.customize [ "modifyvm", :id,
-        "--nic2", "intnet",
-        "--intnet2", "intnet2",
-      ]
-    end
-  end
+#  config.vm.define "antlia" do |antlia|
+#    antlia.vm.network "forwarded_port", guest: 80, host: 8080
+#    antlia.vm.network "forwarded_port", guest: 443, host: 8443
+#  end
 
 #  config.vm.define "carina" do |carina|
 #   carina.vm.synced_folder "./modules", "/etc/puppet/modules"
 #   carina.vm.synced_folder "./modules.private", "/etc/puppet/environments/common"
 #  end
-
-  config.vm.define "andromeda" do |andromeda|
-    andromeda.vm.provider :virtualbox do |vb|
-      vb.gui = true
-    end
-  end
 
   config.vm.define "fornax" do |fornax|
     fornax.vm.network :private_network, :adapter => 3, ip: "192.168.56.10"

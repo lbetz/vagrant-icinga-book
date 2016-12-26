@@ -37,17 +37,17 @@ node "andromeda" {
 }
 
 node "carina" {
-  include role::puppet::master
+  include ::role::puppet::master
 }
 
 node "sagittarius" {
-  include role::proxy::extern
+  include ::role::proxy::extern
 }
 
 node "sextans" {
-  include role::proxy::intern
+  include ::role::proxy::intern
 }
 
 node default {
-  include profile::base
+  include ::profile::base
 }

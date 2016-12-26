@@ -57,14 +57,14 @@ nodes = { 'draco'  => {
 #            :memory   => '1024',
 #            :net      => 'icinga-book.local',
 #          },
-          'andromeda'  => {
-            :box      => 'w2k12r2-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/private/w2k12r2.box',
-            :mac      => '020027000022',
-            :memory   => '1024',
-            :net      => 'icinga-book.local',
-            :gui      => true,
-          },
+#          'andromeda'  => {
+#            :box      => 'w2k12r2-x64-virtualbox',
+#            :url      => 'http://boxes.icinga.org/vagrant/private/w2k12r2.box',
+#            :mac      => '020027000022',
+#            :memory   => '1024',
+#            :net      => 'icinga-book.local',
+#            :gui      => true,
+#          },
           'sculptor'  => {
             :box      => 'centos-7.3-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',

@@ -95,8 +95,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node_config.vm.hostname = name
       node_config.vm.box_url = options[:url] if options[:url]
       node_config.vm.network :private_network, :adapter => 2, type: "dhcp", virtualbox__intnet: options[:net]
-      node_config.vm.synced_folder "puppet/modules.private", "/opt/puppetlabs/puppet/modules"
-      node_config.vm.synced_folder "puppet/modules", "/etc/puppetlabs/code/modules"
       node_config.vm.provider :virtualbox do |vb|
         vb.linked_clone = true if Vagrant::VERSION =~ /^1.[89]/
         vb.name = name
@@ -114,10 +112,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.memory = options[:memory] if options[:memory]
       end
       node_config.ssh.forward_agent = true
-      node_config.vm.provision :shell,
-          :path => 'scripts/pre-install.sh' if options[:box] != "w2k12r2-x64-virtualbox"
-      node_config.vm.provision :shell,
-          :path => 'scripts/pre-install.bat' if options[:box] == "w2k12r2-x64-virtualbox"
+
+      if options[:box] != "w2k12r2-x64-virtualbox"
+        node_config.vm.provision :shell, :path => 'scripts/pre-install.sh'
+        node_config.vm.synced_folder "puppet/modules.private", "/opt/puppetlabs/puppet/modules"
+        node_config.vm.synced_folder "puppet/modules", "/etc/puppetlabs/code/modules"
+      else
+        node_config.vm.provision :shell, :path => 'scripts/pre-install.bat'
+      end
 
       if options[:forwarded]
         options[:forwarded].each_pair do |guest, local|

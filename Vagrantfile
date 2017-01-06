@@ -95,6 +95,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node_config.vm.hostname = name
       node_config.vm.box_url = options[:url] if options[:url]
       node_config.vm.network :private_network, :adapter => 2, type: "dhcp", virtualbox__intnet: options[:net]
+      node_config.vm.synced_folder "puppet/modules", "/opt/puppetlabs/puppet/modules"
       node_config.vm.provider :virtualbox do |vb|
         vb.linked_clone = true if Vagrant::VERSION =~ /^1.[89]/
         vb.name = name
@@ -125,8 +126,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       node_config.vm.provision :puppet do |puppet|
         puppet.environment = "provision"
-        puppet.environment_path = "puppet"
-        puppet.hiera_config_path = "hiera.yaml"
+        puppet.environment_path = "puppet/environments"
+        puppet.hiera_config_path = "puppet/hiera.yaml"
         puppet.facter = {
           "domain" => options[:net],
           "fqdn"   => name + "." + options[:net],

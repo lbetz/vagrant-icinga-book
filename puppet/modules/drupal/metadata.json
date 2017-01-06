@@ -1,0 +1,159 @@
+{
+  "dependencies": [
+    {
+      "name": "puppetlabs/apache"
+    },
+    {
+      "name": "puppetlabs/mysql"
+    }
+  ],
+  "license": "Apache 2.0",
+  "types": [
+    {
+      "providers": [
+        {
+          "doc": "Manage Drupal modules via Drush\n\nRequired binaries: `drush`.",
+          "name": "drush"
+        }
+      ],
+      "doc": "Manages a Drupal module",
+      "properties": [
+        {
+          "doc": "The state the module should be in.  Valid values are `present`, `absent`, `enabled`, `disabled`, `uninstalled`.",
+          "name": "ensure"
+        },
+        {
+          "doc": "Human readable name of the module",
+          "name": "label"
+        },
+        {
+          "doc": "Package the module belongs to  Values can match `/^\\S+$/`.",
+          "name": "package"
+        },
+        {
+          "doc": "The the version of the module",
+          "name": "version"
+        }
+      ],
+      "name": "drupal_module",
+      "parameters": [
+        {
+          "doc": "Site name. Can be set by using a title in the format 'site::module'  Values can match `/^[\\.|\\w]+$/`.",
+          "name": "site"
+        },
+        {
+          "doc": "Name of the module. Can be set by using a title in the format 'site::module'  Values can match `/^[\\.|\\w]+(::\\w+)?$/`.",
+          "name": "name"
+        }
+      ]
+    },
+    {
+      "providers": [
+        {
+          "doc": "Manage Drupal themes via Drush\n\nRequired binaries: `drush`.",
+          "name": "drush"
+        }
+      ],
+      "doc": "Manages a Drupal theme",
+      "properties": [
+        {
+          "doc": "The state the module should be in.  Valid values are `present`, `absent`, `enabled`, `disabled`.",
+          "name": "ensure"
+        },
+        {
+          "doc": "Human readable name of the theme",
+          "name": "label"
+        },
+        {
+          "doc": "Package the theme belongs to  Values can match `/^\\S+$/`.",
+          "name": "package"
+        },
+        {
+          "doc": "The the version of the theme",
+          "name": "version"
+        }
+      ],
+      "name": "drupal_theme",
+      "parameters": [
+        {
+          "doc": "Site name. Can be set by using a title in the format 'site::module'  Values can match `/^[\\.|\\w]+$/`.",
+          "name": "site"
+        },
+        {
+          "doc": "Name of the theme. Can be set by using a title in the format 'site::module'  Values can match `/^[\\.|\\w]+(::\\w+)?$/`.",
+          "name": "name"
+        }
+      ]
+    },
+    {
+      "providers": [
+        {
+          "doc": "Manage Drupal variables via Drush\n\nRequired binaries: `drush`.",
+          "name": "drush"
+        }
+      ],
+      "doc": "Manages a Drupal variable",
+      "properties": [
+        {
+          "doc": "The basic property that the resource should be in.  Valid values are `present`, `absent`.",
+          "name": "ensure"
+        },
+        {
+          "doc": "The value this variable should be set to",
+          "name": "value"
+        }
+      ],
+      "name": "drupal_variable",
+      "parameters": [
+        {
+          "doc": "Site name. Can be set by using a title in the format 'site::variable'  Values can match `/^[\\.|\\w]+$/`.",
+          "name": "site"
+        },
+        {
+          "doc": "Variable name. Can be set by using a title in the format 'site::variable'  Values can match `/^[\\.|\\w]+(::\\w+)?$/`.",
+          "name": "name"
+        }
+      ]
+    }
+  ],
+  "project_page": "UNKNOWN",
+  "description": "This is a module that allows you to manage many aspects of a multisite Drupal installation.\n\nFeatures:\n\n* Facts exposing core Drupal statistics\n* Manages Drupal site variables\n* Manages Drupal modules in all states. (absent, present/installed, disabled, uninstalled)\n* Manages Drupal installation\n    * Includes Drush for administration tasks\n    * Multiple installation types:\n        * Install from repositories\n        * Install bundled tarball\n        * Download directly from `d.o`\n* Manages Drupal subsites (including `default`)\n    * Includes vhost and database management if you're lazy\n    * Configures `settings.php` for each subsite\n        * Allows significant customization, with sane defaults\n    * Installs site database with Drush",
+  "checksums": {
+    "tests/capstone.pp": "9fe088be2f4e02bd0366e804ee64d313",
+    "manifests/package/remote.pp": "6b8203a78391a11ab47f063cfad705ec",
+    "lib/facter/drupal_facts.rb": "1548ad2aba3fc1fb645e52f026c328a9",
+    "manifests/configure.pp": "0ced5e3e185d0c00f3b7f9e75913b792",
+    "lib/puppet/type/drupal_module.rb": "912190269c5973c634a327c645af9d01",
+    "manifests/package/bundled.pp": "6a2b295d037377f9462b88aae8e27cde",
+    "lib/puppet/provider/drupal_module/drush.rb": "e858a71a7f78b96aba1f7bc626e11f0e",
+    "templates/settings.php.erb": "310c4c22b0dfdaca0b1cb35041067ca1",
+    "manifests/params.pp": "9d1405d7fae739fe30d9444f98182ee7",
+    "manifests/db.pp": "f062295011d9f82714b843abe8df9c83",
+    "lib/puppet/provider/drupal_variable/drush.rb": "ffc0d9cd77d685d507130183497ada5f",
+    "CHANGELOG": "b292c2c587b3c719935020054edff55c",
+    "manifests/package/package.pp": "b20813dbde3f9bf0331f540a6e113aea",
+    "lib/puppet/provider/drupal_theme/drush.rb": "ae2e42b4a7af5592b0fc6f6cd0eb98c6",
+    "files/drupal-7.x.tar.gz": "068d7a77958fce6bb002659aa7ccaeb7",
+    "files/drush-7.x-5.8.tar.gz": "1ec16e87b73c94739faa98a00a8c3538",
+    "tests/drush.pp": "db86e122633ae1aeb330e50db5ac9de1",
+    "README.md": "7d8b29dec9542ba8450f16cc5fa5ac01",
+    "LICENSE": "f30fb1003f8c615bdb25569f45a25f3e",
+    "files/drupal-7.22.tar.gz": "068d7a77958fce6bb002659aa7ccaeb7",
+    "Modulefile": "03e7107871383bcfef29581b8fc33a33",
+    "manifests/init.pp": "307eab3813f947294654ae726a69479f",
+    "tests/init.pp": "2ed86f94a253eb6fc652f9cfdf0adc60",
+    "tests/array.pp": "ae21c98403a3bc2014241c82d2c26eb3",
+    "templates/drushrc.php.erb": "e9026e1cc0f419bfd3c617ea4b877ffa",
+    "lib/puppet/type/drupal_theme.rb": "37e25e98097660c69d35c517dc71a87d",
+    "lib/puppet/parser/functions/randstr.rb": "94de886589752c55e21e5f018cacf494",
+    "files/htaccess": "829f15436ace158a3bc822fb2216d212",
+    "manifests/site.pp": "9b3a42054953166f03f659807859c1de",
+    "manifests/drush.pp": "02b369085364539026a402425234280b",
+    "lib/puppet/type/drupal_variable.rb": "42cd4beaf660c8e0935c62646d5c09aa"
+  },
+  "source": "UNKNOWN",
+  "summary": "This is a module that allows you to manage many aspects of a multisite Drupal installation.",
+  "author": "binford2k",
+  "version": "0.0.3",
+  "name": "binford2k-drupal"
+}

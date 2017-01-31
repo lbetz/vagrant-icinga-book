@@ -4,62 +4,37 @@ class profile::puppet::agent {
 
 }
 
+class profile::puppet::server::master {
 
-class profile::puppet::master {
+  file { '/etc/systemd/system/puppetmaster.service':
+    ensure => file,
+    mode   => '0755',
+    source => 'puppet:///modules/profile/puppet/puppetmaster.service',
+    before => Class['puppet'],
+  }
 
   class { '::puppet':
-    server                      => true,
-    server_foreman              => false,
-    server_reports              => 'store',
-    server_storeconfigs_backend => 'puppetdb',
-    server_external_nodes       => '',
-    server_environments         => [],
-    autosign_entries            => ['icinga-book.local', 'icinga-book.net'],
+    server                        => true,
+    server_implementation         => 'master',
+    server_package                => 'puppetserver',
+    server_passenger              => false,
+    server_service_fallback       => true,
+    agent                         => true,
+    vardir                        => '/opt/puppetlabs/server/data/puppetserver',
+    server_puppetdb_host         => $::fqdn,
+    server_storeconfigs_backend  => 'puppetdb',
+    server_directory_environments => true,
+    server_environments           => [],
+    server_dynamic_environments   => true,
+    server_reports                => 'foreman',
+    autosign_entries              => ['*.icinga-book.local', '*.icinga-book.net'],
   }
 
-  class { '::puppetdb::master::config':
-    terminus_package    => 'puppetdb-terminus',
-    strict_validation   => false,
-    manage_storeconfigs => false,
-    restart_puppet      => false,
-  }
-
-  file { '/etc/hiera.yaml':
-    ensure  => file,
-    source  => 'puppet:///modules/profile/puppet/hiera.yaml',
-    notify  => Class['apache']
-  }
-
-  file { '/etc/puppet/hiera.yaml':
-    ensure => link,
-    target => '../hiera.yaml',
-  }
-
-  file { '/etc/puppet/hieradata':
-    ensure  => directory,
-    recurse => true,
-    force   => true,
-    purge   => true,
-    source  => 'puppet:///modules/profile/puppet/hieradata',
-  }
-
-  file { '/etc/puppet/environments/production/manifests':
-    ensure  => directory,
-    recurse => true,
-    force   => true,
-    purge   => true,
-    source  => 'puppet:///modules/profile/puppet/manifests',
-    require => Class['puppet'],
-  }
-}
-
-
-class profile::puppet::puppetdb {
-
-  class { '::puppetdb::server':
+  class { '::puppetdb':
     manage_firewall   => false,
-    database_host     => 'aquarius.icinga-book.local',
-    database_password => 'puppetdb',
-    confdir           => '/etc/puppetdb/conf.d/',
+    require           => Class['::puppet'],
   }
+
+  include foreman
+  include foreman_proxy
 }

@@ -1,0 +1,4 @@
+---
+puppet::puppetmaster: puppet
+puppet::client_certname: carina.icinga-book.local
+puppet::server_certname: carina.icinga-book.local

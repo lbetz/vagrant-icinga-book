@@ -1,4 +1,3 @@
 ---
-puppet::puppetmaster: puppet
-puppet::client_certname: carina.icinga-book.local
-puppet::server_certname: carina.icinga-book.local
+foreman::admin_password: 'changeme'
+foreman::configure_epel_repo: false

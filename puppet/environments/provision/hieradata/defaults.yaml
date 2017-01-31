@@ -1,2 +1,4 @@
 ---
 network::dns: 'no'
+puppet::puppetmaster: carina.icinga-book.local
+puppet::environment: production

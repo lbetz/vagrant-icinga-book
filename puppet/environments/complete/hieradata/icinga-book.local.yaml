@@ -1,0 +1,16 @@
+---
+apache::mod::status::allow_from:
+  - 172.16.1.11
+profile::icinga2::pki::certname: "%{::hostname}.icinga-book.local"
+profile::icinga2::agent::endpoints:
+  NodeName: {}
+  'fornax.icinga-book.local':
+    host: 172.16.1.11
+profile::icinga2::agent::zones:
+  ZoneName:
+    endpoints:
+      - NodeName
+    parent: master
+  master:
+    endpoints:
+      - fornax.icinga-book.local

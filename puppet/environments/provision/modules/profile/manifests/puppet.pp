@@ -20,21 +20,25 @@ class profile::puppet::server::master {
     server_passenger              => false,
     server_service_fallback       => true,
     agent                         => true,
+    server_foreman                => false,
+    server_external_nodes         => '',
     vardir                        => '/opt/puppetlabs/server/data/puppetserver',
-    server_puppetdb_host         => $::fqdn,
-    server_storeconfigs_backend  => 'puppetdb',
+    #    server_puppetdb_host          => $::fqdn,
+    server_storeconfigs_backend   => 'puppetdb',
     server_directory_environments => true,
     server_environments           => [],
     server_dynamic_environments   => true,
-    server_reports                => 'foreman',
+    server_reports                => 'store',
     autosign_entries              => ['*.icinga-book.local', '*.icinga-book.net'],
   }
 
-  class { '::puppetdb':
-    manage_firewall   => false,
-    require           => Class['::puppet'],
-  }
+  #class { '::puppetdb::server':
+  #  manage_firewall    => false,
+    #manage_dbserver    => false,
+  #  database_host      => 'aquarius.icinga-book.local',
+    #ssl_set_cert_paths => true,
+  #}
 
-  include foreman
-  include foreman_proxy
+  #include foreman
+  #include foreman_proxy
 }

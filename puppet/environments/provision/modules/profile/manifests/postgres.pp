@@ -1,7 +1,7 @@
 class profile::postgres {
 
   # Postgresql 9.4 from PuppetDB
-  class { 'postgresql::server':
+  class { 'puppetdb::database::postgresql':
     listen_addresses  => '*',
   }
 

@@ -3,5 +3,4 @@ class role::groupware {
   include ::profile::ldap::client
   include ::profile::ldap::server
   include ::profile::postfix::groupware
-  include ::profile::icinga2::agent
 }

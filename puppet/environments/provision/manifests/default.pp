@@ -16,14 +16,6 @@ node "antlia" {
   include ::role::webserver
 }
 
-node "fornax" {
-  include ::role::monitor::master
-}
-
-node "sculptor" {
-  include ::role::monitor::satellite
-}
-
 node "gmw" {
   include ::role::groupware
 }

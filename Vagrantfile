@@ -26,7 +26,7 @@ nodes = { 'draco'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000012',
-            :memory   => '1024',
+            :memory   => '384',
             :net      => 'icinga-book.local',
 #            :forwarded => {
 #              '443' => '9443',
@@ -36,7 +36,6 @@ nodes = { 'draco'  => {
             :box      => 'centos-7.2-x64-virtualbox',
             :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
             :mac      => '020027000212',
-            :memory   => '2048',
             :net      => 'icinga-book.net',
             :forwarded => {
               '443' => '8443',

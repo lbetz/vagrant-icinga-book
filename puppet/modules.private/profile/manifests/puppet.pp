@@ -32,12 +32,13 @@ class profile::puppet::server::master {
   class { '::puppetdb::server':
     manage_firewall => false,
     database_host   => 'aquarius.icinga-book.local',
+    java_args       => [ '-Xmx96m' ],
   }
   ->
   class { '::puppetdb::master::config':
     restart_puppet              => false,
     puppetdb_soft_write_failure => true,
-    test_url                    => false,
+    strict_validation           => false,
   }
   ~>
   exec { 'profile::puppet::server::master':
@@ -45,7 +46,4 @@ class profile::puppet::server::master {
     command     => 'systemctl restart puppetmaster',
     refreshonly => true,
   }
-
-  #include foreman
-  #include foreman_proxy
 }

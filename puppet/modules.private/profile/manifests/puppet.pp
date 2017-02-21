@@ -37,6 +37,7 @@ class profile::puppet::server::master {
   class { '::puppetdb::master::config':
     restart_puppet              => false,
     puppetdb_soft_write_failure => true,
+    test_url                    => false,
   }
   ~>
   exec { 'profile::puppet::server::master':

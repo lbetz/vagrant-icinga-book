@@ -10,9 +10,8 @@ class profile::puppet::server::master {
     ensure => file,
     mode   => '0755',
     source => 'puppet:///modules/profile/puppet/puppetmaster.service',
-    before => Class['puppet'],
   }
-
+  ->
   class { '::puppet':
     server                        => true,
     server_implementation         => 'master',
@@ -23,26 +22,23 @@ class profile::puppet::server::master {
     server_foreman                => false,
     server_external_nodes         => '',
     vardir                        => '/opt/puppetlabs/server/data/puppetserver',
-    #server_puppetdb_host          => $::fqdn,
-    #server_storeconfigs_backend   => 'puppetdb',
     server_directory_environments => true,
     server_environments           => [],
     server_dynamic_environments   => true,
     server_reports                => 'store',
     autosign_entries              => ['*.icinga-book.local', '*.icinga-book.net'],
   }
-
+  ->
   class { '::puppetdb::server':
     manage_firewall => false,
     database_host   => 'aquarius.icinga-book.local',
-    require         => Class['puppet'],
   }
   ->
   class { '::puppetdb::master::config':
-    restart_puppet => false,
-    notify         => Exec['profile::puppet::server::master'],
+    restart_puppet              => false,
+    puppetdb_soft_write_failure => true,
   }
-
+  ~>
   exec { 'profile::puppet::server::master':
     path        => '/bin',
     command     => 'systemctl restart puppetmaster',

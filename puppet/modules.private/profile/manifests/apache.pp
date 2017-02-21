@@ -84,14 +84,14 @@ class profile::apache::online {
   file { '/etc/ssl/online.icinga-book.net.key':
     ensure => file,
     mode => '0600',
-    source => 'puppet:///modules/profile/private_keys/online.icinga-book.net.key',
+    source => 'puppet:///modules/profile/ssl/private_keys/online.icinga-book.net.key',
     notify => Class['::apache'],
   }
 
   file { '/etc/ssl/online.icinga-book.net.crt':
     ensure => file,
     mode => '0644',
-    source => 'puppet:///modules/profile/certs/online.icinga-book.net.crt',
+    source => 'puppet:///modules/profile/ssl/certs/online.icinga-book.net.crt',
     notify => Class['::apache'],
   }
 
@@ -117,14 +117,14 @@ class profile::apache::cash {
   file { '/etc/ssl/cash.icinga-book.net.key':
     ensure => file,
     mode => '0600',
-    source => 'puppet:///modules/profile/private_keys/cash.icinga-book.net.key',
+    source => 'puppet:///modules/profile/ssl/private_keys/cash.icinga-book.net.key',
     notify => Class['::apache'],
   }
 
   file { '/etc/ssl/cash.icinga-book.net.crt':
     ensure => file,
     mode => '0644',
-    source => 'puppet:///modules/profile/certs/cash.icinga-book.net.crt',
+    source => 'puppet:///modules/profile/ssl/certs/cash.icinga-book.net.crt',
     notify => Class['::apache'],
   }
 

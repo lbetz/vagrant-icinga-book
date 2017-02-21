@@ -7,15 +7,13 @@ nodes = { 'draco'  => {
             :mac      => '020027000099',
             :net      => 'icinga-book.local',
           },
-          'carina'  => {
-            :box      => 'centos-7.2-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
-            :mac      => '020027000012',
-            :memory   => '512',
+          'andromeda'  => {
+            :box      => 'w2k12r2-x64-virtualbox',
+            :url      => 'http://boxes.icinga.org/vagrant/private/w2k12r2.box',
+            :mac      => '020027000022',
+            :memory   => '1024',
             :net      => 'icinga-book.local',
-            :forwarded => {
-              '443' => '9443',
-            },
+            :gui      => true,
           },
           'aquarius'  => {
             :box      => 'centos-7.2-x64-virtualbox',
@@ -23,6 +21,16 @@ nodes = { 'draco'  => {
             :mac      => '020027000016',
             :memory   => '512',
             :net      => 'icinga-book.local',
+          },
+          'carina'  => {
+            :box      => 'centos-7.2-x64-virtualbox',
+            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.2-x64-virtualbox.box',
+            :mac      => '020027000012',
+            :memory   => '1024',
+            :net      => 'icinga-book.local',
+#            :forwarded => {
+#              '443' => '9443',
+#            },
           },
           'antlia'  => {
             :box      => 'centos-7.2-x64-virtualbox',
@@ -64,14 +72,6 @@ nodes = { 'draco'  => {
 #            :mac      => '020027000015',
 #            :memory   => '1024',
 #            :net      => 'icinga-book.local',
-#          },
-#          'andromeda'  => {
-#            :box      => 'w2k12r2-x64-virtualbox',
-#            :url      => 'http://boxes.icinga.org/vagrant/private/w2k12r2.box',
-#            :mac      => '020027000022',
-#            :memory   => '1024',
-#            :net      => 'icinga-book.local',
-#            :gui      => true,
 #          },
           'sculptor'  => {
             :box      => 'centos-7.2-x64-virtualbox',
@@ -119,8 +119,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
       if options[:box] != "w2k12r2-x64-virtualbox"
         node_config.vm.provision :shell, :path => 'scripts/pre-install.sh'
-        node_config.vm.synced_folder "puppet/modules.private", "/opt/puppetlabs/puppet/modules"
-        node_config.vm.synced_folder "puppet/modules", "/etc/puppetlabs/code/modules"
       else
         node_config.vm.provision :shell, :path => 'scripts/pre-install.bat'
       end
@@ -132,7 +130,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
 
       node_config.vm.provision :puppet do |puppet|
-        puppet.environment = "provision"
+        if ENV['PUPPET_ENV']
+          puppet.environment = ENV['PUPPET_ENV']
+        else
+          puppet.environment = "provision"
+        end
         puppet.environment_path = "puppet/environments"
         puppet.hiera_config_path = "puppet/hiera.yaml"
         puppet.facter = {

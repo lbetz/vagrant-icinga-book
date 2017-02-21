@@ -11,7 +11,7 @@ class profile::ldap::client {
   }
   file { '/etc/openldap/ssl/ca.pem':
     ensure => file,
-    source => 'puppet:///modules/profile/ca/ca.crt',
+    source => 'puppet:///modules/profile/ssl/ca/ca.crt',
   }
 }
 
@@ -29,12 +29,12 @@ class profile::ldap::server {
 
   file { '/etc/openldap/ssl/slapd.key':
     ensure => file,
-    source => 'puppet:///modules/profile/private_keys/gmw.icinga-book.local.key',
+    source => 'puppet:///modules/profile/ssl/private_keys/gmw.icinga-book.local.key',
     mode   => '0600',
   } ->
   file { '/etc/openldap/ssl/slapd.pem':
     ensure => file,
-    source => 'puppet:///modules/profile/certs/gmw.icinga-book.local.crt',
+    source => 'puppet:///modules/profile/ssl/certs/gmw.icinga-book.local.crt',
   }
 
   openldap::server::schema { 'cosine':

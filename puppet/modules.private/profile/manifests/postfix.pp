@@ -36,16 +36,16 @@ class profile::postfix::groupware {
   }
   file { '/etc/postfix/ssl/ca.pem':
     ensure => file,
-    source => 'puppet:///modules/profile/ca/ca.crt',
+    source => 'puppet:///modules/profile/ssl/ca/ca.crt',
   }
   file { '/etc/postfix/ssl/server.key':
     ensure => file,
-    source => 'puppet:///modules/profile/private_keys/gmw.icinga-book.local.key',
+    source => 'puppet:///modules/profile/ssl/private_keys/gmw.icinga-book.local.key',
     mode   => '0600',
   }
   file { '/etc/postfix/ssl/server.crt':
     ensure => file,
-    source => 'puppet:///modules/profile/certs/gmw.icinga-book.local.crt',
+    source => 'puppet:///modules/profile/ssl/certs/gmw.icinga-book.local.crt',
   }
 
   package { 'dovecot':

@@ -23,8 +23,8 @@ class profile::puppet::server::master {
     server_foreman                => false,
     server_external_nodes         => '',
     vardir                        => '/opt/puppetlabs/server/data/puppetserver',
-    #    server_puppetdb_host          => $::fqdn,
-    server_storeconfigs_backend   => 'puppetdb',
+    #server_puppetdb_host          => $::fqdn,
+    #server_storeconfigs_backend   => 'puppetdb',
     server_directory_environments => true,
     server_environments           => [],
     server_dynamic_environments   => true,
@@ -32,12 +32,22 @@ class profile::puppet::server::master {
     autosign_entries              => ['*.icinga-book.local', '*.icinga-book.net'],
   }
 
-  #class { '::puppetdb::server':
-  #  manage_firewall    => false,
-    #manage_dbserver    => false,
-  #  database_host      => 'aquarius.icinga-book.local',
-    #ssl_set_cert_paths => true,
-  #}
+  class { '::puppetdb::server':
+    manage_firewall => false,
+    database_host   => 'aquarius.icinga-book.local',
+    require         => Class['puppet'],
+  }
+  ->
+  class { '::puppetdb::master::config':
+    restart_puppet => false,
+    notify         => Exec['profile::puppet::server::master'],
+  }
+
+  exec { 'profile::puppet::server::master':
+    path        => '/bin',
+    command     => 'systemctl restart puppetmaster',
+    refreshonly => true,
+  }
 
   #include foreman
   #include foreman_proxy

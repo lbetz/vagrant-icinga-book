@@ -1,0 +1,17 @@
+---
+profile::icinga2::master::manage_config: true
+profile::icinga2::master::ido_dbpassword: x9jrzq23
+profile::icinga2::master::web_db_pass: bietjicAn1
+profile::icinga2::master::endpoints:
+  'fornax.icinga-book.local': {}
+  'sculptor.icinga-book.net':
+    host: 172.16.2.11
+profile::icinga2::master::zones:
+  master:
+    endpoints:
+      - fornax.icinga-book.local
+  dmz:
+    endpoints:
+      - sculptor.icinga-book.net
+    parent: master
+mysql::server::root_password: vagrant

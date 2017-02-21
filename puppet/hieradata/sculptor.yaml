@@ -1,0 +1,14 @@
+---
+profile::icinga2::slave::zone_name: dmz
+profile::icinga2::slave::endpoints:
+  'sculptor.icinga-book.net': {}
+  'fornax.icinga-book.local':
+    host: 172.16.1.11
+profile::icinga2::slave::zones:
+  master:
+    endpoints:
+      - fornax.icinga-book.local
+  dmz:
+    endpoints:
+      - sculptor.icinga-book.net
+    parent: master

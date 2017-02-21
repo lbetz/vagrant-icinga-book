@@ -1,7 +1,7 @@
 ---
 :backends: yaml
 :yaml:
-  :datadir: /vagrant/puppet/environments/%{::environment}/hieradata
+  :datadir: /vagrant/puppet/hieradata
 :hierarchy:
   - "%{::hostname}"
   - "%{::domain}"

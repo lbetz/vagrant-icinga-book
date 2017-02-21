@@ -1,0 +1,15 @@
+---
+profile::icinga2::agent::endpoints:
+  NodeName: {}
+  'sculptor.icinga-book.net':
+    host: 172.16.2.11
+profile::icinga2::agent::zones:
+  ZoneName:
+    endpoints:
+      - NodeName
+    parent: dmz
+  dmz:
+    endpoints:
+      - sculptor.icinga-book.net
+apache::mod::status::allow_from:
+  - 172.16.2.11

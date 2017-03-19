@@ -116,11 +116,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
 
       node_config.vm.provision :puppet do |puppet|
-        if ENV['PUPPET_ENV']
-          puppet.environment = ENV['PUPPET_ENV']
-        else
-          puppet.environment = "provision"
-        end
+        puppet.environment = ENV['VAGRANT_PUPPET_ENV'] if ENV['VAGRANT_PUPPET_ENV']
         puppet.environment_path = "puppet/environments"
         puppet.hiera_config_path = "puppet/hiera.yaml"
         puppet.facter = {

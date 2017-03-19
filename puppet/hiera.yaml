@@ -1,8 +1,12 @@
 ---
-:backends: yaml
-:yaml:
-  :datadir: /vagrant/puppet/hieradata
-:hierarchy:
-  - "%{::hostname}"
-  - "%{::domain}"
-  - defaults
+version: 5
+defaults:
+  datadir: /vagrant/puppet/hieradata
+  data_hash: yaml_data
+hierarchy:
+  - name: "Per-node data (yaml version)"
+    path: "%{::hostname}.yaml"
+  - name: "Other YAML hierarchy levels"
+    paths:
+      - "%{::domain}.yaml"
+      - "defaults.yaml"

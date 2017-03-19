@@ -19,7 +19,7 @@ class network($dns = 'yes') {
       #}
 
       file_line { 'peerdns':
-        path   => '/etc/sysconfig/network-scripts/ifcfg-enp0s3',
+        path   => '/etc/sysconfig/network-scripts/ifcfg-eth0',
         line  => "PEERDNS=${dns}",
         match => '^PEERDNS=',
       } ~>

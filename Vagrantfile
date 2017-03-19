@@ -2,8 +2,7 @@
 # vi: set ft=ruby :
 
 nodes = { 'draco'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000099',
             :net      => 'icinga-book.local',
           },
@@ -16,22 +15,19 @@ nodes = { 'draco'  => {
 #            :gui      => true,
 #          },
           'aquarius'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000016',
             :memory   => '512',
             :net      => 'icinga-book.local',
           },
           'carina'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000012',
             :memory   => '384',
             :net      => 'icinga-book.local',
           },
           'antlia'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000212',
             :net      => 'icinga-book.net',
             :forwarded => {
@@ -40,26 +36,22 @@ nodes = { 'draco'  => {
             },
           },
           'gmw'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000013',
             :net      => 'icinga-book.local',
           },
           'kmw'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000213',
             :net      => 'icinga-book.net',
           },
           'sextans'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000014',
             :net      => 'icinga-book.local',
           },
           'sagittarius'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000214',
             :net      => 'icinga-book.net',
           },
@@ -70,14 +62,12 @@ nodes = { 'draco'  => {
 #            :net      => 'icinga-book.local',
 #          },
           'sculptor'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000211',
             :net      => 'icinga-book.net',
           },
           'fornax'  => {
-            :box      => 'centos-7.3-x64-virtualbox',
-            :url      => 'http://boxes.icinga.org/vagrant/centos/centos-7.3-x64-virtualbox.box',
+            :box      => 'centos/7',
             :mac      => '020027000011',
             :memory   => '512',
             :net      => 'icinga-book.local',

@@ -18,8 +18,8 @@ class profile::icinga2::icingaweb2(
 
 
   class { '::icingaweb2':
-    initialize => true,
-    install_method => 'package',
+    initialize          => true,
+    install_method      => 'package',
     manage_apache_vhost => true,
     ido_db_name         => $ido_db_name,
     ido_db_pass         => $ido_db_pass,
@@ -28,8 +28,13 @@ class profile::icinga2::icingaweb2(
     web_db_pass         => $web_db_pass,
     web_db_user         => "icingaweb2",
     require             => Class['::mysql::server'],
-  } ->
-
+  }
+  ->
+  package { 'php-mysql':
+    ensure => installed,
+    notify  => Service["httpd"],
+  }
+  ->
   augeas { 'php.ini':
     context => '/files/etc/php.ini/PHP',
     changes => ['set date.timezone Europe/Vienna',],

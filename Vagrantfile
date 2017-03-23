@@ -91,7 +91,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.gui = options[:gui]
         vb.customize ["modifyvm", :id,
           "--groups", "/Icinga Book/" + options[:net],
-          "--memory", "256",
+          "--memory", "384",
           "--audio", "none",
           "--usb", "on",
           "--usbehci", "off",

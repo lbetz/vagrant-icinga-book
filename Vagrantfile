@@ -23,7 +23,7 @@ nodes = { 'draco'  => {
           'carina'  => {
             :box      => 'centos/7',
             :mac      => '020027000012',
-            :memory   => '384',
+            :memory   => '512',
             :net      => 'icinga-book.local',
           },
           'antlia'  => {

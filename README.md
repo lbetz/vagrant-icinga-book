@@ -15,7 +15,7 @@ The original project for these files is the version of [lbetz](https://github.co
 
 Example for OSX:
 
-    $ vagrant plugin install vagrant-vbguest
+    $ sudo vagrant plugin install vagrant-vbguest
     $ sudo gem install r10k
 
 # Setup

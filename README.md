@@ -7,6 +7,7 @@ The original project for these files is the version of [lbetz](https://github.co
 # Requirements
 
 * Vagrant, recommended version >1.8
+* Vagrant plugin vbguest
 * Virtualbox
 * r10k
 
@@ -14,10 +15,12 @@ The original project for these files is the version of [lbetz](https://github.co
 
 Example for OSX:
 
+    $ vagrant plugin install-vbguest
     $ sudo gem install r10k
 
 # Setup
 
+    $ cd puppet
     $ r10k puppetfile install
 
 # Run
@@ -52,6 +55,9 @@ Default gateway to the internat with DHCP, DNS for both zones. Host with two loc
 
 Contains a Postgresql DBMS with database `drupal` for the website `www.icinga-book.net/drupal` and a tomcat based application server.
 
+## carina (internal net)
+Puppet master with puppetdb.
+
 ## antlia (dmz)
 
 Has an installed Apache webserver with three virtual hosts. An internet portal `www.icinga-book.net` in english and german, `online.icinga-book.net` via HTTPS simulate an online shop and `cash.icinga-book.net` via HTTPS serves a receipt page. If you set a name solution for all three names to 127.0.0.1 i.e. in your hosts file you can access the HTTP pages via port 8080 and the HTTPS pages via 8443. Both ports are forwarded to the VM.
@@ -71,10 +77,6 @@ A squid installation as webproxy on standard port 3128. The traffic is rerouted 
 ## sagittarius (dmz)
 
 The external webproxy for connections from the internal squid and all hosts in the dmz.
-
-## andromeda (internal net)
-
-A Windows Server 2012 R2 VM with an Active Directory `icinga-book.ads` or `ADS` (netbios name).
 
 ## sculptor (dmz)
 

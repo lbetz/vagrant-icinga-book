@@ -14,7 +14,7 @@ class profile::router {
   file_line { 'ip_masquerade':
     ensure => present,
     path   => '/etc/rc.local',
-    line   => '/sbin/iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE',
+    line   => '/sbin/iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE',
   } ~>
   exec { 'rc.local':
     path        => '/sbin:/usr/bin',

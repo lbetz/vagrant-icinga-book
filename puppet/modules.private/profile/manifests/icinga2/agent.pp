@@ -6,8 +6,9 @@ class profile::icinga2::agent(
   include profile::icinga2::pki
 
   class { 'icinga2':
-    confd     => false,
-    features  => ['mainlog'],
+    manage_repo => true,
+    confd       => false,
+    features    => ['mainlog'],
   }
 
   # Feature: api

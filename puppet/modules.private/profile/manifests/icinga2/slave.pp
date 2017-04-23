@@ -9,8 +9,9 @@ class profile::icinga2::slave(
   include profile::icinga2::sshkey
 
   class { 'icinga2':
-    confd     => false,
-    features  => ['checker','mainlog'],
+    manage_repo => true,
+    confd       => false,
+    features    => ['checker','mainlog'],
     constants => {
       'ZoneName' => $zone_name,
     },

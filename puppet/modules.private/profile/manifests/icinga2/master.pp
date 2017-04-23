@@ -12,8 +12,9 @@ class profile::icinga2::master(
   include vim
 
   class { 'icinga2':
-    confd     => false,
-    features  => ['checker','mainlog','notification','statusdata','compatlog','command'],
+    manage_repo => true,
+    confd       => false,
+    features    => ['checker','mainlog','notification','statusdata','compatlog','command'],
     constants => {
       'ZoneName' => 'master',
     },

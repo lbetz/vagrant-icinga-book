@@ -1,2 +1,4 @@
 ---
+puppet::puppetmaster: puppet.icinga-book.local
+puppet::environment: production
 network::dns: 'no'

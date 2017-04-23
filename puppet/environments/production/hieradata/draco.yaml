@@ -1,3 +1,0 @@
----
-network::dns: 'yes'
-ntp::server: true

@@ -6,14 +6,6 @@ nodes = { 'draco'  => {
             :mac      => '020027000099',
             :net      => 'icinga-book.local',
           },
-#          'andromeda'  => {
-#            :box      => 'w2k12r2-x64-virtualbox',
-#            :url      => 'http://boxes.icinga.org/vagrant/private/w2k12r2.box',
-#            :mac      => '020027000022',
-#            :memory   => '1024',
-#            :net      => 'icinga-book.local',
-#            :gui      => true,
-#          },
           'aquarius'  => {
             :box      => 'centos/7',
             :mac      => '020027000016',
@@ -55,6 +47,14 @@ nodes = { 'draco'  => {
             :mac      => '020027000214',
             :net      => 'icinga-book.net',
           },
+#          'andromeda'  => {
+#            :box      => 'w2k12r2-x64-virtualbox',
+#            :url      => 'http://boxes.icinga.org/vagrant/private/w2k12r2.box',
+#            :mac      => '020027000022',
+#            :memory   => '1024',
+#            :net      => 'icinga-book.local',
+#            :gui      => true,
+#          },
 #          'phoenix'  => {
 #            :box      => 'dploeger/oracle-XE-11.2-x86_64',
 #            :mac      => '020027000015',
@@ -83,6 +83,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
     config.vm.define name do |node_config|
       node_config.vm.box = options[:box]
       node_config.vm.hostname = name
+      node_config.vm.host_name = name + "." + options[:net] if options[:box] != "w2k12r2-x64-virtualbox"
       node_config.vm.box_url = options[:url] if options[:url]
       node_config.vm.network :private_network, :adapter => 2, type: "dhcp", virtualbox__intnet: options[:net]
       node_config.vm.provider :virtualbox do |vb|
@@ -116,8 +117,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       end
 
       node_config.vm.provision :puppet do |puppet|
+        if options[:box] != "w2k12r2-x64-virtualbox"
+          puppet.environment_path = "puppet/environments"
+        else
+          puppet.environment_path = "puppet/environments.windows"
+        end
+
         puppet.environment = ENV['VAGRANT_PUPPET_ENV'] if ENV['VAGRANT_PUPPET_ENV']
-        puppet.environment_path = "puppet/environments"
         puppet.hiera_config_path = "puppet/hiera.yaml"
         puppet.facter = {
           "domain" => options[:net],

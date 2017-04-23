@@ -2,18 +2,20 @@ class profile::icinga2::plugins {
 
   case $::osfamily {
     'windows': {
-      require icinga2
-
+      Class['::icinga2']
+      ->
       file { 'C:/ProgramData/icinga2/etc/icinga2/scripts/check_time.vbs':
         ensure             => file,
         source_permissions => ignore,
         source             => 'puppet:///modules/profile/icinga2/scripts/check_time.vbs',
       }
+      ->
       file { 'C:/ProgramData/icinga2/etc/icinga2/scripts/check_ad.vbs':
         ensure             => file,
         source_permissions => ignore,
         source             => 'puppet:///modules/profile/icinga2/scripts/check_ad.vbs',
       }
+      ->
       file { 'C:/ProgramData/icinga2/etc/icinga2/scripts/check_windows_updates.ps1':
         ensure             => file,
         source_permissions => ignore,
@@ -33,8 +35,8 @@ class profile::icinga2::plugins {
         'nagios-plugins-mem' ]:
         ensure  => installed,
       }
-
-      -> file { '/usr/lib64/nagios/plugins/check_yum':
+      ->
+      file { '/usr/lib64/nagios/plugins/check_yum':
         ensure => file,
         source => 'puppet:///modules/profile/icinga2/scripts/check_yum',
       }
@@ -61,13 +63,13 @@ class profile::icinga2::plugins::extra {
     'nagios-plugins-jmx4perl' ]:
     ensure  => installed,
   }
-
-  -> file { '/usr/lib64/nagios/plugins/check_kdc':
+  ->
+  file { '/usr/lib64/nagios/plugins/check_kdc':
     ensure => file,
     source => 'puppet:///modules/profile/icinga2/scripts/check_kdc',
   }
-
-  -> file { '/usr/lib64/nagios/plugins/check_squid':
+  ->
+  file { '/usr/lib64/nagios/plugins/check_squid':
     ensure => file,
     source => 'puppet:///modules/profile/icinga2/scripts/check_squid',
   }

@@ -1,6 +1,4 @@
 class profile::ads {
-  include profile::base
-
   class { '::windows_ad':
     install                => present,
     installmanagementtools => true,

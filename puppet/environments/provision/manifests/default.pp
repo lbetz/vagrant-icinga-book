@@ -40,6 +40,14 @@ node "sextans" {
   include ::role::proxy::intern
 }
 
+node "sculptor" {
+  include ::role::monitor::satellite
+}
+
+node "fornax" {
+  include ::role::monitor::master
+}
+
 node default {
   include ::profile::base
 }

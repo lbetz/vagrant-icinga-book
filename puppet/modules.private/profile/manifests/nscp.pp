@@ -1,8 +1,8 @@
 class profile::nscp {
 
   class { '::nscp':
-    ensure => running,
-    enable => true,
+    ensure => stopped,
+    enable => false,
   }
 
   -> file { 'C:/Program Files/NSClient++/scripts/custom/check_time.vbs':

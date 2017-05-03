@@ -1,3 +1,10 @@
+class profile::icinga2::plugins::monitoring {
+  package { 'nagios-plugins-all':
+    ensure => installed,
+  }
+}
+
+
 class profile::icinga2::plugins {
 
   case $::osfamily {

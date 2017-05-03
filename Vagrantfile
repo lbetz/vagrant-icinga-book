@@ -76,6 +76,7 @@ nodes = { 'draco'  => {
 
 # Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
 VAGRANTFILE_API_VERSION = "2"
+VAGRANT_REQUIRED_LINKED_CLONE_VERSION = "1.8.0"
 
 Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
@@ -87,7 +88,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node_config.vm.box_url = options[:url] if options[:url]
       node_config.vm.network :private_network, :adapter => 2, type: "dhcp", virtualbox__intnet: options[:net]
       node_config.vm.provider :virtualbox do |vb|
-        vb.linked_clone = true if Vagrant::VERSION =~ /^1.[89]/
+        vb.linked_clone = true if Gem::Version.new(Vagrant::VERSION) >= Gem::Version.new(VAGRANT_REQUIRED_LINKED_CLONE_VERSION)
         vb.name = name
         vb.gui = options[:gui]
         vb.customize ["modifyvm", :id,

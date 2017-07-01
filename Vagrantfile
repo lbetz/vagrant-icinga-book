@@ -47,6 +47,9 @@ nodes = {
     :mac    => '020027000011',
     :memory => '512',
     :net    => 'icinga-book.local',
+    :forwarded => {
+      '80'  => '8000',
+    },
   },
 }
 

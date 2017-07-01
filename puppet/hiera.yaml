@@ -8,6 +8,6 @@ hierarchy:
     path: "nodes/%{::hostname}.yaml"
   - name: "Other YAML hierarchy levels"
     paths:
-      - "chapters/%{::chapter}.yaml"
+      - "chapters/%{::chapter}/%{::hostname}.yaml"
       - "domains/%{::domain}.yaml"
       - "common.yaml"

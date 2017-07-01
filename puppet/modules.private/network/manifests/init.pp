@@ -18,8 +18,13 @@ class network($dns = 'yes') {
       #  match => '^SELINUX=',
       #}
 
+      $int = $::virtual ? {
+        'parallels' => 'eth0',
+        default     => 'enp0s3',
+      }
+
       file_line { 'peerdns':
-        path   => '/etc/sysconfig/network-scripts/ifcfg-eth0',
+        path   => "/etc/sysconfig/network-scripts/ifcfg-${int}",
         line  => "PEERDNS=${dns}",
         match => '^PEERDNS=',
       } ~>

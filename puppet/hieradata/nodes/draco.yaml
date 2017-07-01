@@ -1,4 +1,8 @@
 ---
+classes:
+  - profile::security
+  - profile::router
+  - dnsmasq
 network::dns: 'yes'
 network::stage: 'first'
 ntp::server: true

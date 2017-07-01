@@ -1,0 +1,5 @@
+---
+classes:
+  - profile::puppet::agent
+  - profile::tomcat
+  - profile::postgres::drupal

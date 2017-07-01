@@ -1,3 +1,9 @@
 ---
+classes:
+  - profile::puppet::agent
+  - profile::ldap::client
+  - profile::ldap::server
+  - profile::postfix::groupware
+
 postfix::master_cf_source: 'puppet:///modules/profile/groupware/master.cf'
 postfix::main_cf_source: 'puppet:///modules/profile/groupware/main.cf'

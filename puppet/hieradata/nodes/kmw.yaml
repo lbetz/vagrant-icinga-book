@@ -1,3 +1,8 @@
 ---
+classes:
+  - profile::puppet::agent
+  - profile::ldap::client
+  - profile::postfix::mailrelay
+
 postfix::master_cf_source: 'puppet:///modules/profile/mailrelay/master.cf'
 postfix::main_cf_source: 'puppet:///modules/profile/mailrelay/main.cf'

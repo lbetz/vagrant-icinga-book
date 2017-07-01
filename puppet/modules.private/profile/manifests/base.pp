@@ -11,9 +11,9 @@ class profile::base {
         require => Class[::network],
       }
 
-      #class { ['::repos::epel', '::repos::plugins']:
-      #  stage => 'repos',
-      #}
+      class { ['::repos::epel']:
+        stage => 'repos',
+      }
     }
   }
 

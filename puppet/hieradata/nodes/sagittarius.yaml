@@ -1,0 +1,4 @@
+---
+classes:
+  - profile::puppet::agent
+  - profile::squid::extern

@@ -160,11 +160,11 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
       node.vm.provision :shell, :path => 'scripts/pre-install.sh'
       node.vm.provision :puppet do |puppet|
         puppet.environment_path = "puppet/environments"
-        puppet.environment = ENV['VAGRANT_PUPPET_ENV'] if ENV['VAGRANT_PUPPET_ENV']
         puppet.hiera_config_path = "puppet/hiera.yaml"
         puppet.facter = {
-          "domain" => options[:net],
-          "fqdn"   => name + "." + options[:net],
+	  "chapter" => book_chapter,
+          "domain"  => options[:net],
+          "fqdn"    => name + "." + options[:net],
         }
       end
     end

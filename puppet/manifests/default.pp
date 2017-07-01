@@ -5,4 +5,3 @@ case $operatingsystem {
 }
 
 lookup('classes', {merge => unique}).include
-notify { $::chapter: }

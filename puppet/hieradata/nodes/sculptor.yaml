@@ -1,4 +1,7 @@
 ---
+classes:
+  - profile::puppet::agent
+
 profile::icinga2::slave::zone_name: dmz
 profile::icinga2::slave::endpoints:
   'sculptor.icinga-book.net': {}

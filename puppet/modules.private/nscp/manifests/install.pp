@@ -1,7 +1,7 @@
 class nscp::install inherits nscp::params {
 
   package { $package:
-    ensure => installed,
+    ensure => '0.4.4.19',
   }
 
 }

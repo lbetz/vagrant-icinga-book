@@ -6,6 +6,8 @@
 172.16.1.14 sextans.icinga-book.local sextans
 172.16.1.15 phoenix.icinga-book.local phoenix
 172.16.1.16 aquarius.icinga-book.local aquarius
+172.16.1.20 andro-alpha.icinga-book.local andro-alpha
+172.16.1.21 andro-beta.icinga-book.local andro-beta
 172.16.1.22 andromeda.icinga-book.local andromeda
 172.16.1.254 draco.icinga-book.local draco
 172.16.2.11 sculptor.icinga-book.net sculptor

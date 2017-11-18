@@ -1,0 +1,6 @@
+---
+icinga2::confd: true
+
+classes:
+  - profile::icinga2::master
+  - profile::icinga2::icingaweb2

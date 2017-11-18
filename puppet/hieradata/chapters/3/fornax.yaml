@@ -1,8 +1,0 @@
----
-classes:
-  - icinga2
-  - profile::icinga2::classicui
-  - profile::icinga2::plugins::monitoring
-
-icinga2::manage_repo: true
-icinga2::purge_features: false

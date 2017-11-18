@@ -11,4 +11,6 @@ dhcp-host=02:00:27:00:00:13,172.16.1.13,set:green
 dhcp-host=02:00:27:00:00:14,172.16.1.14,set:green
 dhcp-host=02:00:27:00:00:15,172.16.1.15,set:green
 dhcp-host=02:00:27:00:00:16,172.16.1.16,set:green
+dhcp-host=02:00:27:00:00:20,172.16.1.20,set:green
+dhcp-host=02:00:27:00:00:21,172.16.1.21,set:green
 dhcp-host=02:00:27:00:00:22,172.16.1.22,set:green

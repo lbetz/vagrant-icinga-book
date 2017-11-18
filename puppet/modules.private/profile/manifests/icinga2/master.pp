@@ -1,93 +1,48 @@
-class profile::icinga2::master(
-  $manage_config = false,
-  $ido_dbpassword,
-  $endpoints,
-  $zones,
-) {
-  include mysql::server
-  include profile::icinga2::base
-  include profile::icinga2::pki
-  include profile::icinga2::plugins::extra
-  include profile::icinga2::sshkey
-  include vim
+class profile::icinga2::master {
 
-  class { 'icinga2':
-    manage_repo => true,
-    confd       => false,
-    features    => ['checker','mainlog','notification','statusdata','compatlog','command'],
-    constants => {
-      'ZoneName' => 'master',
-    },
+  /* Install Monitoring Plugins */
+  include ::profile::icinga2::plugins::monitoring 
+
+  
+  /* Manage Icinga 2 with additional features api */
+  class { '::icinga2':
+    features => [ 'mainlog', 'checker', 'notification', 'api', ],
+    require  => Class['::profile::icinga2::plugins::monitoring'],
   }
 
-  # Feature: ido-mysql
-  class { 'icinga2::feature::idomysql':
-    user          => 'icinga',
-    password      => $ido_dbpassword,
-    import_schema => true,
-    require       => Mysql::Db['icinga'],
-  }
+  /* Create a CA fot Icinga 2 */
+  include ::icinga2::pki::ca
 
-  mysql::db { 'icinga':
-    user     => 'icinga',
-    password => $ido_dbpassword,
-    host     => 'localhost',
-    grant    => ['SELECT', 'INSERT', 'UPDATE', 'DELETE', 'DROP', 'CREATE VIEW', 'CREATE', 'ALTER', 'INDEX', 'EXECUTE'],
+  file {
+    default:
+      owner => 'icinga',
+      group => 'icinga',
+      mode  => '0640',
+    ;
+    '/var/spool/icinga2/.ssh':
+      ensure  => directory,
+      require => Class['icinga2'],
+    ;
+    '/var/spool/icinga2/.ssh/id_rsa':
+      ensure => file,
+      mode   => '0600',
+      source => 'puppet:///modules/profile/icinga2/id_rsa',
+    ;
+    '/var/spool/icinga2/.ssh/id_rsa.pub':
+      ensure => file,
+      source => 'puppet:///modules/profile/icinga2/id_rsa.pub',
+    ;
+    '/var/spool/icinga2/.ssh/config':
+      ensure  => file,
+      content => "Host *\n  StrictHostKeyChecking no\n  BatchMode yes",
+    ;
+    '/etc/icinga2/conf.d':
+      ensure  => directory,
+      recurse => true,
+      source  => "puppet:///modules/profile/icinga2/${::chapter}",
+      tag     => 'icinga2::config::file',
+      notify  => Class['icinga2::service'],
+    ;
   }
-
-  # Feature: api
-  class { 'icinga2::feature::api':
-    pki             => 'none',
-    accept_commands => true,
-    endpoints       => $endpoints,
-    zones           => $zones,
-  }
-
-  icinga2::object::zone { ['global-templates', 'windows-commands', 'linux-commands']:
-    global => true,
-  }
-
-  # MySQL user to monitor this DBMS
-  mysql_user { 'monitor@localhost':
-    ensure        => 'present',
-    password_hash => mysql_password('monitor'),
-    require       => Class['mysql::server'],
-  }
-
-  mysql_grant { 'monitor@localhost/*.*':
-    ensure     => present,
-    privileges => [ 'SELECT' ],
-    table      => '*.*',
-    user       => 'monitor@localhost',
-  }
-
-  # Icinga2 CA
-  file { '/var/lib/icinga2/ca':
-    ensure             => directory,
-    owner              => 'icinga',
-    group              => 'icinga',
-    mode               => '0750',
-    recurse            => true,
-    force              => true,
-    purge              => true,
-    source             => 'puppet:///modules/profile/ssl/ca/',
-    source_permissions => 'ignore',
-    tag                => 'icinga2::config::file',
-  }
-
-  # Icinga2 configuration of monitored hosts and services
-  if $manage_config {
-    file { '/etc/icinga2/zones.d':
-      ensure             => directory,
-      owner              => 'icinga',
-      group              => 'icinga',
-      mode               => '0750',
-      recurse            => true,
-      force              => true,
-      purge              => true,
-      source             => 'puppet:///modules/profile/icinga2/zones.d',
-      source_permissions => 'ignore',
-      tag                => 'icinga2::config::file',
-    }
-  }
+     
 }

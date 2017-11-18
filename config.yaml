@@ -1,0 +1,79 @@
+---
+networks:
+  icinga-book.local:
+    :address: 172.16.1.0
+  icinga-book.net:
+    :address: 172.16.2.0
+machines:
+  draco:
+    :net:
+      icinga-book.local:
+        :ip: 172.16.1.254
+      icinga-book.net:
+        :ip: 172.16.2.254
+  fornax:
+    :net:
+      icinga-book.local:
+        :mac: '020027000011'
+    :memory: 512
+    :forwarded:
+      '80': '9000'
+  aquarius:
+    :net:
+      icinga-book.local:
+        :mac: '020027000016'
+    :memory: 512
+  carina:
+    :net:
+      icinga-book.local:
+        :mac: '020027000012'
+    :memory: 512
+  antlia:
+    :net:
+      icinga-book.net:
+        :mac: '020027000212'
+    :forwarded:
+      '443': '8443'
+      '80': '8080'
+  sculptor:
+    :net:
+      icinga-book.net:
+        :mac: '020027000211'
+  gmw:
+    :net:
+      icinga-book.local:
+        :mac: '020027000013' 
+  kmw:
+    :net:
+      icinga-book.net:
+        :mac: '020027000213' 
+  sextans:
+    :net:
+      icinga-book.local:
+        :mac: '020027000014' 
+  sagittarius:
+    :net:
+      icinga-book.net:
+        :mac: '020027000214' 
+  phoenix:
+    :net:
+      icinga-book.local:
+        :mac: '020027000015' 
+  andro-alpha:
+    :os: windows
+    :net:
+      icinga-book.local:
+        :mac: '020027000020'
+    :memory: 1024
+  andro-beta:
+    :os: windows
+    :net:
+      icinga-book.local:
+        :mac: '020027000021'
+    :memory: 1024
+  andromeda:
+    :os: windows
+    :net:
+      icinga-book.local:
+        :mac: '020027000022'
+    :memory: 1024

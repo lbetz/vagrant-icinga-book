@@ -8,4 +8,8 @@ class profile::icinga2::classicui {
     ensure => installed,
     notify => Class['apache'],
   }
+
+  include ::icinga2::feature::command
+  include ::icinga2::feature::compatlog
+  include ::icinga2::feature::statusdata
 }

@@ -1,6 +1,15 @@
 ---
 classes:
   - profile::base
+
+icinga2::confd: false
+icinga2::manage_repo: true
+icinga2::repositoryd: false
+
+nscp::ensure: stopped
+nscp::enable: false
+
 puppet::puppetmaster: puppet.icinga-book.local
 puppet::environment: production
+
 network::dns: 'no'

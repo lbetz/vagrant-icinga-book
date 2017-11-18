@@ -1,9 +1,10 @@
 ---
 classes:
-  - profile::puppet::agent
   - profile::security
   - profile::router
   - dnsmasq
+  - profile::puppet::agent
+
 network::dns: 'yes'
 network::stage: 'first'
 ntp::server: true

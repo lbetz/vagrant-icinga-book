@@ -1,0 +1,18 @@
+---
+icinga2::confd: true
+icinga2::constants:
+  ZoneName: master
+  TicketSalt: bd051f11074e2388980481ce0dbd3d76
+icinga2::feature::api::pki: none
+icinga2::feature::api::zones:
+  ZoneName:
+    endpoints:
+      - NodeName
+  linux-commands:
+    global: true
+  windows-commands:
+    global: true
+
+classes:
+  - profile::icinga2::master
+  - profile::icinga2::icingaweb2

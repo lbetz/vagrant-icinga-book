@@ -2,7 +2,6 @@ class profile::icinga2::sshkey {
   File {
     owner   => 'icinga',
     group   => 'icinga',
-    require => Class['icinga2'],
   }
 
   file { '/var/spool/icinga2/.ssh':

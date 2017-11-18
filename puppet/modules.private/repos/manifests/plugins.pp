@@ -6,11 +6,10 @@ class repos::plugins {
 
          yumrepo { 'icinga-book':
             descr          => "Extra Packages for Icinga Book Project ${::operatingsystemmajrelease} - \$basearch",
-            baseurl        => "http://download.prefork.de/epel/7",
+            baseurl        => 'https://packages.prefork.de/pub/epel/$releasever/$basearch',
             failovermethod => 'priority',
             enabled        => '1',
             gpgcheck       => '0',
-            sslverify      => '0',
          }
 
       } # RedHat

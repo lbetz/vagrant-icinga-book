@@ -1,0 +1,3 @@
+---
+classes:
+  - profile::icinga2::ssh

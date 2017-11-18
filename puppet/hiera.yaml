@@ -6,8 +6,11 @@ defaults:
 hierarchy:
   - name: "Per-node data (yaml version)"
     path: "nodes/%{::hostname}.yaml"
-  - name: "Other YAML hierarchy levels"
+  - name: "Chapter based data"
     paths:
       - "chapters/%{::chapter}/%{::hostname}.yaml"
+      - "chapters/defaults.yaml"
+  - name: "Other YAML hierarchy levels"
+    paths:
       - "domains/%{::domain}.yaml"
       - "common.yaml"

@@ -119,6 +119,12 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
         vb.memory = options[:memory] 
       end
     end
-  end
 
+    config.vm.define "fornax" do |fornax|
+      fornax.vm.provider :virtualbox do |vb|
+        fornax.vm.network :private_network, :adapter => 3, ip: "192.168.56.10"
+      end
+    end
+
+  end
 end

@@ -2,7 +2,7 @@
 VAGRANTFILE_API_VERSION = "2"
 VAGRANT_REQUIRED_LINKED_CLONE_VERSION = "1.8.0"
 
-DEFAULT_BOOK_CHAPTER = "3"
+DEFAULT_BOOK_CHAPTER = "2"
 
 require 'yaml'
 
@@ -117,12 +117,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
           "--usbehci", "off",
         ].concat(vb_customize)
         vb.memory = options[:memory] 
-      end
-    end
-
-    config.vm.define "fornax" do |fornax|
-      fornax.vm.provider :virtualbox do |vb|
-        fornax.vm.network :private_network, :adapter => 3, ip: "192.168.56.10"
       end
     end
 

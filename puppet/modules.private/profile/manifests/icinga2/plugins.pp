@@ -3,6 +3,9 @@ class profile::icinga2::plugins::monitoring {
   if $::kernel != 'Linux' {
     include nscp
   } else {
+    include ::profile::repo::epel
+    include ::profile::repo::plugins
+
     package { ['nagios-plugins-all', 'nagios-plugins-mem']:
       ensure => installed,
     }

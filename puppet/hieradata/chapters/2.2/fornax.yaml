@@ -1,0 +1,5 @@
+---
+
+classes:
+  - profile::repo::epel
+  - profile::repo::icinga

@@ -11,6 +11,8 @@ class profile::apache::www {
   include ::apache
   include ::apache::mod::status
 
+  include ::profile::repo::epel
+
   package { 'php-pgsql':
     ensure => installed,
     before => Class[Apache],

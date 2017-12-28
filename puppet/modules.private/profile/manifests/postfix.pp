@@ -2,6 +2,8 @@ class profile::postfix::mailrelay {
 
   include ::postfix
 
+  include ::profile::repo::epel
+
   file_line { 'enable inbound relay':
     ensure  => present,
     path    => '/etc/postfix/transport',

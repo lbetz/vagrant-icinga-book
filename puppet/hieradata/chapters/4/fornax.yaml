@@ -1,5 +1,4 @@
 ---
-icinga2::confd: true
 
 classes:
   - profile::icinga2::master

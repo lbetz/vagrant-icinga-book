@@ -1,0 +1,5 @@
+---
+profile::icinga2::confd: '/etc/icinga2/book.d'
+
+classes:
+  - profile::icinga2

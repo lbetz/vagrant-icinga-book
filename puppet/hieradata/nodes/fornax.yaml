@@ -1,5 +1,6 @@
 ---
-icinga2::feature::api::pki: none
+profile::icinga2::constants:
+  TicketSalt: bd051f11074e2388980481ce0dbd3d76
 
 classes:
   - profile::puppet::agent

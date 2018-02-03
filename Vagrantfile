@@ -2,24 +2,24 @@
 # vi: set ft=ruby :
 
 nodes = { 'draco'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000099',
             :net      => 'icinga-book.local',
           },
           'aquarius'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000016',
             :memory   => '512',
             :net      => 'icinga-book.local',
           },
           'carina'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000012',
             :memory   => '512',
             :net      => 'icinga-book.local',
           },
           'antlia'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000212',
             :net      => 'icinga-book.net',
             :forwarded => {
@@ -28,22 +28,22 @@ nodes = { 'draco'  => {
             },
           },
           'gmw'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000013',
             :net      => 'icinga-book.local',
           },
           'kmw'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000213',
             :net      => 'icinga-book.net',
           },
           'sextans'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000014',
             :net      => 'icinga-book.local',
           },
           'sagittarius'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000214',
             :net      => 'icinga-book.net',
           },
@@ -62,12 +62,12 @@ nodes = { 'draco'  => {
 #            :net      => 'icinga-book.local',
 #          },
           'sculptor'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000211',
             :net      => 'icinga-book.net',
           },
           'fornax'  => {
-            :box      => 'centos/7',
+            :box      => 'bento/centos-7.4',
             :mac      => '020027000011',
             :memory   => '512',
             :net      => 'icinga-book.local',

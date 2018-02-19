@@ -17,8 +17,49 @@ class profile::postfix::mailrelay {
     notify      => Class['::postfix::service'],
   }
 
-  package { ['clamav-server','amavisd-new']:
+  package { 'amavisd-new':
     ensure => installed,
+  } ~>
+
+  service { 'amavisd':
+    ensure => running,
+    enable => true,
+    require => Service['clamd@amavisd'],
+  } 
+
+  package { 'clamav-server':
+    ensure => installed,
+  } ->
+  file { '/usr/lib/systemd/system/clamd@amavisd.service':
+    ensure  => file,
+    content => '[Unit]
+Description = clamd scanner clamd daemon
+After = syslog.target nss-lookup.target network.target
+
+[Service]
+Type = simple
+ExecStart = /usr/sbin/clamd -c /etc/clamd.d/clamd@amavisd.conf --foreground=yes
+Restart = on-failure
+PrivateTmp = true',
+  } ~>
+
+  exec { 'systemctl-reload-clamd':
+    command     => '/bin/systemctl daemon-reload',
+    refreshonly => true,
+  } ->
+
+  file { '/etc/clamd.d/clamd@amavisd.conf':
+    ensure  => file,
+    content => 'LogSyslog yes
+LocalSocket /var/run/clamd.amavisd/clamd.sock
+LocalSocketGroup amavis
+User amavis
+AllowSupplementaryGroups yes',
+  } ~>
+ 
+  service { 'clamd@amavisd':
+    ensure => running,
+    enable => true,
   }
 
 }

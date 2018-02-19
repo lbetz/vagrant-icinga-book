@@ -6,7 +6,7 @@ class repos::plugins {
 
          yumrepo { 'icinga-book':
             descr          => "Extra Packages for Icinga Book Project ${::operatingsystemmajrelease} - \$basearch",
-            baseurl        => 'https://packages.prefork.de/pub/epel/$releasever/$basearch',
+            baseurl        => 'https://packages.prefork.de/pub/epel/$releasever',
             failovermethod => 'priority',
             enabled        => '1',
             gpgcheck       => '0',

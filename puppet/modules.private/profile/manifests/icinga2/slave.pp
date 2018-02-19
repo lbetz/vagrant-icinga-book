@@ -3,13 +3,11 @@ class profile::icinga2::slave(
   $endpoints,
   $zones,
 ) {
-  include profile::icinga2::base
-  include profile::icinga2::pki
-  include profile::icinga2::plugins::extra
-  include profile::icinga2::sshkey
+
+  include ::profile::repo::icinga
+  include ::profile::icinga2::plugins::monitoring
 
   class { 'icinga2':
-    manage_repo => true,
     confd       => false,
     features    => ['checker','mainlog'],
     constants => {
@@ -19,7 +17,9 @@ class profile::icinga2::slave(
 
   # Feature: api
   class { 'icinga2::feature::api':
-    pki             => 'none',
+    pki             => 'icinga2',
+    ca_host         => '172.16.1.11',
+    ticket_salt     => 'bd051f11074e2388980481ce0dbd3d76',
     accept_config   => true,
     accept_commands => true,
     endpoints       => $endpoints,

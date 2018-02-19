@@ -43,4 +43,8 @@ class profile::postgres::drupal {
     user     => 'drupal',
     password => 'drupal',
   }
+  postgresql::server::db { 'shop':
+    user     => 'shop',
+    password => 'shop',
+  }
 }

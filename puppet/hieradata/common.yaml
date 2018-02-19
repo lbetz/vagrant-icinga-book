@@ -3,6 +3,7 @@ classes:
   - profile::base
 
 icinga2::repositoryd: false
+profile::icinga2::confd: false
 
 nscp::ensure: stopped
 nscp::enable: false

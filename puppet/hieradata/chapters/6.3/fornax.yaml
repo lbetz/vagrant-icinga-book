@@ -1,0 +1,8 @@
+---
+profile::icinga2::confd: '/etc/icinga2/book.d'
+profile::icinga2::constants:
+  ZoneName: master
+
+classes:
+  - profile::icinga2::master::standalone
+  - profile::icingaweb2

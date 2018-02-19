@@ -1,4 +1,5 @@
 ---
+profile::icinga2::agent::ca_host: 172.16.1.11
 profile::icinga2::agent::endpoints:
   NodeName: {}
   'fornax.icinga-book.local':

@@ -16,8 +16,6 @@ machines:
       icinga-book.local:
         :mac: '020027000011'
     :memory: 512
-    :forwarded:
-      '80': '9000'
   aquarius:
     :net:
       icinga-book.local:

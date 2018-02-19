@@ -23,4 +23,17 @@ class profile::icinga2::ido(
     require       => [ Mysql::Db[$db_name], Package['icinga2-ido-mysql'] ],
   }
 
+  # MySQL user to monitor this DBMS
+  mysql_user { 'monitor@localhost':
+    ensure        => 'present',
+    password_hash => mysql_password('monitor'),
+    require       => Class['mysql::server'],
+  }
+
+  mysql_grant { 'monitor@localhost/*.*':
+    ensure     => present,
+    privileges => [ 'SELECT' ],
+    table      => '*.*',
+    user       => 'monitor@localhost',
+  }
 }

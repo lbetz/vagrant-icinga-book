@@ -1,17 +1,12 @@
-class profile::icinga2::master {
+class profile::icinga2::master::standalone {
 
-  /* Install Monitoring Plugins */
-  include ::profile::icinga2::plugins::monitoring 
+  require ::profile::icinga2
+  require ::profile::icinga2::ido
+  require ::profile::icinga2::api
 
-  
-  /* Manage Icinga 2 with additional features api */
-  class { '::icinga2':
-    features => [ 'mainlog', 'checker', 'notification', 'api', ],
-    require  => Class['::profile::icinga2::plugins::monitoring'],
+  ::icinga2::object::zone { ['linux-commands', 'windows-commands']:
+    global => true,
   }
-
-  /* Create a CA fot Icinga 2 */
-  include ::icinga2::pki::ca
 
   file {
     default:
@@ -21,7 +16,6 @@ class profile::icinga2::master {
     ;
     '/var/spool/icinga2/.ssh':
       ensure  => directory,
-      require => Class['icinga2'],
     ;
     '/var/spool/icinga2/.ssh/id_rsa':
       ensure => file,
@@ -35,13 +29,6 @@ class profile::icinga2::master {
     '/var/spool/icinga2/.ssh/config':
       ensure  => file,
       content => "Host *\n  StrictHostKeyChecking no\n  BatchMode yes",
-    ;
-    '/etc/icinga2/conf.d':
-      ensure  => directory,
-      recurse => true,
-      source  => "puppet:///modules/profile/icinga2/${::chapter}",
-      tag     => 'icinga2::config::file',
-      notify  => Class['icinga2::service'],
     ;
   }
      

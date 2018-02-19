@@ -2,4 +2,8 @@
 profile::icinga2::confd: '/etc/icinga2/book.d'
 
 classes:
-  - profile::icinga2::icingaweb2
+  - profile::icinga2
+  - profile::icinga2::ido
+  - profile::icinga2::api
+  - profile::icingaweb2
+  - profile::icingaweb2::director
